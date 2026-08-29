@@ -8,7 +8,7 @@ export default defineConfig({
   // Absolute-URL base for canonical links, Open Graph images, and the sitemap
   // (brief §11 DOMAIN). The pages.dev address still serves as an alias;
   // canonicals point every crawler and share here.
-  site: 'https://balikaz.edu.np',
+  site: 'https://shree-sharada-balika-namuna.github.io',
   integrations: [sitemap()],
   redirects: {
     '/admin': '/admin/index.html',
