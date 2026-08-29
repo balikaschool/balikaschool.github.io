@@ -1,7 +1,7 @@
 ---
 name: Shantila Bhattarai
 designation: Teacher
-photo: ../../assets/teachers/T3_restored.jpeg
+photo: ../../assets/teachers/T8_restored.jpeg
 subject: Accountancy
 phone: '9842168578'
 address: Dharan-8
