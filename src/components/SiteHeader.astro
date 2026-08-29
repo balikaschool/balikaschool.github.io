@@ -212,11 +212,31 @@ const navI18nKeys: Record<string, string> = {
 </style>
 
 <script>
-  const toggle = document.querySelector('.nav-toggle');
-  const nav = document.getElementById('site-nav');
-  toggle?.addEventListener('click', () => {
-    const open = toggle.getAttribute('aria-expanded') === 'true';
-    toggle.setAttribute('aria-expanded', String(!open));
-    nav?.classList.toggle('is-open', !open);
-  });
+  function initMobileMenu() {
+    const toggle = document.querySelector<HTMLButtonElement>('.nav-toggle');
+    const nav = document.getElementById('site-nav');
+    if (!toggle || !nav) return;
+
+    // Always start closed on each navigation
+    toggle.setAttribute('aria-expanded', 'false');
+    nav.classList.remove('is-open');
+
+    toggle.addEventListener('click', () => {
+      const open = toggle.getAttribute('aria-expanded') === 'true';
+      toggle.setAttribute('aria-expanded', String(!open));
+      nav.classList.toggle('is-open', !open);
+    });
+
+    // Close the menu when any nav link is clicked so it
+    // doesn't appear open after the page transition
+    nav.querySelectorAll('a').forEach((link) => {
+      link.addEventListener('click', () => {
+        toggle.setAttribute('aria-expanded', 'false');
+        nav.classList.remove('is-open');
+      });
+    });
+  }
+
+  // Runs on first load AND after every View Transition navigation
+  document.addEventListener('astro:page-load', initMobileMenu);
 </script>
