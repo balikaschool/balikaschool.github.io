@@ -1,6 +1,6 @@
 backend:
   name: github
-  repo: charlies-animal-sanctuary/website
+  repo: balikaschool/balikaschool.github.io
   branch: main
   auth_methods: [token]
   base_url: https://balikaschool.github.io
