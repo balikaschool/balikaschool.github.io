@@ -1,0 +1,88 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import NoticeCard from '../../components/NoticeCard.astro';
+import { site } from '../../config/site';
+
+const { notices } = site.copy;
+
+const all = await getCollection('notices');
+// Pinned first, then by date descending
+const sorted = [
+  ...all.filter((e) => e.data.pinned).sort((a, b) => b.data.date.getTime() - a.data.date.getTime()),
+  ...all.filter((e) => !e.data.pinned).sort((a, b) => b.data.date.getTime() - a.data.date.getTime()),
+];
+---
+
+<BaseLayout title={notices.title}>
+  <section class="section">
+    <div class="container">
+      <h1 data-i18n="notices.title">{notices.title}</h1>
+      <p class="intro" data-i18n="notices.intro">{notices.intro}</p>
+      {
+        sorted.length > 0 ? (
+          <ul class="notice-grid">
+            {sorted.map((e) => (
+              <li>
+                <NoticeCard
+                  title={e.data.title}
+                  href={`/notices/${e.id}`}
+                  photo={e.data.photo}
+                  category={e.data.category}
+                  date={e.data.date}
+                  pinned={e.data.pinned}
+                />
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <div class="empty-state">
+            <p data-i18n="notices.empty">{notices.emptyMessage}</p>
+          </div>
+        )
+      }
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .intro {
+    margin-top: var(--space-3);
+    font-size: 1.15rem;
+  }
+
+  .notice-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-4);
+    list-style: none;
+    margin: var(--space-4) 0 0;
+    padding: 0;
+    width: 100%;
+  }
+
+  .notice-grid > li {
+    display: block;
+    width: 100%;
+  }
+
+  @media (max-width: 900px) {
+    .notice-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 550px) {
+    .notice-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .empty-state {
+    margin-top: var(--space-4);
+    display: grid;
+    justify-items: start;
+    gap: var(--space-3);
+    font-size: 1.1rem;
+  }
+</style>

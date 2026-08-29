@@ -1,0 +1,155 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { site } from '../config/site';
+
+const { contact } = site.copy;
+---
+
+<BaseLayout title={contact.title}>
+  <section class="section">
+    <div class="container contact-inner">
+      <div>
+        <h1 data-i18n="contact.title">{contact.title}</h1>
+        <p class="intro" data-i18n="contact.intro">{contact.intro}</p>
+
+        <h2 data-i18n="contact.formHeading">{contact.formHeading}</h2>
+        <form class="form-grid" id="contact-form">
+          <div class="form-field">
+            <label for="ct-name" data-i18n="contact.nameLabel">Your name *</label>
+            <input id="ct-name" name="name" type="text" required autocomplete="name" />
+          </div>
+          <div class="form-field">
+            <label for="ct-email" data-i18n="contact.emailLabel">Your email *</label>
+            <input id="ct-email" name="email" type="email" required autocomplete="email" />
+          </div>
+          <div class="form-field">
+            <label for="ct-message" data-i18n="contact.messageLabel">Your message *</label>
+            <textarea id="ct-message" name="message" required></textarea>
+          </div>
+          <button class="btn btn--primary" type="submit" data-i18n="contact.sendBtn">Send message</button>
+          <p class="form-status" role="status" tabindex="-1" id="form-status"></p>
+        </form>
+      </div>
+
+      <aside class="contact-side">
+        <h2 data-i18n="contact.whereHeading">Where we are</h2>
+        <p data-i18n="site.location">{site.location}</p>
+        <div class="map-wrapper">
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3560.456457783115!2d87.28046137659857!3d26.825430476699303!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39ef417315007681%3A0xe5c15dc53664a2c7!2z4KS24KS-4KSw4KSm4KS-IOCkrOCkvuCksuCkv-CkleCkviDgpKjgpK7gpYHgpKjgpL4g4KSJ4KSa4KWN4KSaIOCkruCkvi4g4KS14KS_Lg!5e0!3m2!1sne!2snp!4v1787966007409!5m2!1sne!2snp"
+            width="100%"
+            height="260"
+            style="border:0;"
+            allowfullscreen
+            loading="lazy"
+            referrerpolicy="strict-origin-when-cross-origin"
+            title="School Location Map"
+          ></iframe>
+        </div>
+        <h2 data-i18n="contact.emailHeading">Email</h2>
+        <p><a href={`mailto:${site.email}`}>{site.email}</a></p>
+        <h2 data-i18n="contact.phoneHeading">Phone</h2>
+        <ul class="phone-list">
+          {site.phones.map(ph => (
+            <li><a href={`tel:${ph.replace(/-/g, '')}`}>{ph}</a></li>
+          ))}
+        </ul>
+        <h2 data-i18n="contact.socialHeading">Find us online</h2>
+        <ul class="social-list">
+          {site.social.facebook && <li><a href={site.social.facebook}>Facebook</a></li>}
+          {site.social.youtube && <li><a href={site.social.youtube}>YouTube</a></li>}
+        </ul>
+      </aside>
+    </div>
+  </section>
+</BaseLayout>
+
+<script define:vars={{ siteEmail: site.email }}>
+  const form = document.getElementById('contact-form');
+  const status = document.getElementById('form-status');
+
+  if (form && status) {
+    form.addEventListener('submit', (event) => {
+      event.preventDefault();
+      
+      const formData = new FormData(form);
+      const name = formData.get('name');
+      const email = formData.get('email');
+      const message = formData.get('message');
+      
+      const subject = `Message from ${name} (Balika School Website)`;
+      const body = `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`;
+      
+      const mailtoUrl = `mailto:${siteEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      
+      status.textContent = `Opening your email client... If it doesn't open, please send the email to ${siteEmail}`;
+      status.style.border = '1.5px solid var(--accent)';
+      status.style.borderRadius = 'var(--radius-card)';
+      status.style.padding = 'var(--space-2) var(--space-3)';
+      status.focus();
+      
+      window.location.href = mailtoUrl;
+    });
+  }
+</script>
+
+<style>
+  .contact-inner {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: var(--space-5);
+    align-items: start;
+  }
+
+  .intro {
+    margin-block: var(--space-3) var(--space-4);
+    font-size: 1.15rem;
+  }
+
+  h2 {
+    margin-bottom: var(--space-3);
+  }
+
+  .contact-side h2 {
+    margin-top: var(--space-4);
+  }
+
+  .contact-side h2:first-child {
+    margin-top: 0;
+  }
+
+  .contact-side p {
+    margin-bottom: var(--space-3);
+  }
+
+  .map-wrapper {
+    margin-block: var(--space-3);
+    border-radius: var(--radius-card);
+    overflow: hidden;
+    border: 1px solid var(--border);
+  }
+
+  .map-wrapper iframe {
+    display: block;
+    width: 100%;
+  }
+
+  .phone-list,
+  .social-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: var(--space-2);
+  }
+
+  .form-status:empty {
+    display: none;
+  }
+
+  @media (max-width: 800px) {
+    .contact-inner {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

@@ -1,0 +1,149 @@
+---
+import { Image, getImage } from 'astro:assets';
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import GalleryGrid from '../../components/GalleryGrid.astro';
+import { formatBsDate } from '../../utils/dateConverter';
+
+export async function getStaticPaths() {
+  const entries = await getCollection('notices');
+  return entries.map((entry) => ({ params: { slug: entry.id }, props: { entry } }));
+}
+
+const { entry } = Astro.props;
+const d = entry.data;
+const bsEn = formatBsDate(d.date, 'en', false);
+const bsNe = formatBsDate(d.date, 'ne', false);
+const catI18nKey = `cat.${d.category.toLowerCase()}`;
+
+const { Content } = await render(entry);
+
+const ogPhoto = d.photo
+  ? await getImage({ src: d.photo, width: 1200, format: 'jpeg' })
+  : undefined;
+---
+
+<BaseLayout title={d.title} description={`${d.title} — ${d.category}`} ogImage={ogPhoto?.src}>
+  <section class="section">
+    <div class="container">
+      <a class="back-link" href="/notices">← All notices</a>
+      <div class={d.photo ? "detail-grid" : "detail-grid detail-grid--text-only"}>
+        {
+          d.photo && (
+            <div class="detail-media">
+              <Image
+                src={d.photo}
+                alt={d.title}
+                width={1000}
+                widths={[480, 800, 1000]}
+                sizes="(max-width: 800px) 92vw, 40vw"
+                loading="eager"
+                fetchpriority="high"
+                class="detail-photo"
+              />
+            </div>
+          )
+        }
+        <div class="detail-info">
+          <h1>{d.title}</h1>
+          <p class="meta">
+            <span class="pill" data-i18n={catI18nKey}>{d.category}</span>
+            <time datetime={d.date.toISOString().slice(0, 10)}>
+              <span class="bs-date-en">{bsEn}</span>
+              <span class="bs-date-ne" style="display:none;">{bsNe}</span>
+            </time>
+          </p>
+          {d.pinned && (
+            <p>
+              <span class="pill pill--pinned">
+                <span class="bs-date-en">Featured Notice</span>
+                <span class="bs-date-ne" style="display:none;">मुख्य सूचना</span>
+              </span>
+            </p>
+          )}
+          <div class="notice-body">
+            <Content />
+          </div>
+        </div>
+      </div>
+      {d.gallery && d.gallery.length > 0 && <GalleryGrid images={d.gallery} name={d.title} />}
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+  function syncNoticeDetailDate() {
+    const lang = localStorage.getItem('balika_lang') || 'ne';
+    document.querySelectorAll('.bs-date-en').forEach(el => {
+      (el as HTMLElement).style.display = lang === 'en' ? 'inline' : 'none';
+    });
+    document.querySelectorAll('.bs-date-ne').forEach(el => {
+      (el as HTMLElement).style.display = lang === 'ne' ? 'inline' : 'none';
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', syncNoticeDetailDate);
+  document.addEventListener('astro:page-load', syncNoticeDetailDate);
+  window.addEventListener('languageChange', syncNoticeDetailDate);
+</script>
+
+<style>
+  .back-link {
+    display: inline-block;
+    margin-bottom: var(--space-4);
+    font-weight: 600;
+  }
+
+  .detail-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: var(--space-5);
+    align-items: start;
+  }
+
+  .detail-grid--text-only {
+    grid-template-columns: 1fr;
+    max-width: 46rem;
+  }
+
+  @media (max-width: 800px) {
+    .detail-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .detail-media {
+    display: grid;
+    gap: var(--space-3);
+    justify-items: start;
+  }
+
+  .detail-photo {
+    width: 100%;
+    height: auto;
+    border-radius: var(--radius-card);
+    border: var(--border-hairline);
+  }
+
+  .detail-info {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .meta {
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    flex-wrap: wrap;
+  }
+
+  .notice-body {
+    line-height: 1.7;
+  }
+
+  .notice-body p {
+    margin-bottom: var(--space-3);
+  }
+</style>

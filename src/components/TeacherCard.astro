@@ -1,0 +1,118 @@
+---
+import { Image } from 'astro:assets';
+
+interface Props {
+  name: string;
+  photo?: ImageMetadata;
+  designation: string;
+  subject?: string;
+  phone?: string;
+  email?: string;
+}
+
+const { name, photo, designation, subject, phone, email } = Astro.props;
+const role = [designation, subject].filter(Boolean).join(' · ');
+---
+
+<article class="teacher-card">
+  {
+    photo && (
+      <div class="card-media">
+        <Image
+          src={photo}
+          alt={`Photo of ${name}`}
+          width={640}
+          widths={[320, 480, 640]}
+          sizes="(max-width: 580px) 92vw, 280px"
+          class="card-photo"
+        />
+      </div>
+    )
+  }
+  <div class="card-body">
+    <h3 class="card-name">{name}</h3>
+    <p class="card-role">{role}</p>
+    {(phone || email) && (
+      <div class="card-contact">
+        {phone && <a href={`tel:${phone}`}>{phone}</a>}
+        {email && <a href={`mailto:${email}`}>{email}</a>}
+      </div>
+    )}
+  </div>
+</article>
+
+<style>
+  .teacher-card {
+    border: var(--border-hairline);
+    border-radius: var(--radius-card);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    background: var(--color-white);
+    height: 100%;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .teacher-card {
+      transition:
+        transform 200ms ease,
+        box-shadow 200ms ease;
+    }
+
+    .teacher-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 22px rgb(0 0 0 / 0.08);
+    }
+  }
+
+  .card-photo {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    display: block;
+  }
+
+  .card-body {
+    padding: var(--space-3);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    flex-grow: 1;
+  }
+
+  .card-name {
+    margin: 0;
+    font-size: 1.1rem;
+    line-height: 1.25;
+  }
+
+  .card-role {
+    margin: 0;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--link);
+    line-height: 1.35;
+  }
+
+  .card-contact {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    margin-top: auto;
+    padding-top: var(--space-2);
+    border-top: 1px solid color-mix(in srgb, var(--accent) 25%, transparent);
+    font-size: 0.8rem;
+  }
+
+  .card-contact a {
+    color: var(--text-body);
+    text-decoration: none;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .card-contact a:hover {
+    color: var(--link);
+  }
+</style>

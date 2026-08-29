@@ -1,0 +1,120 @@
+---
+import { Image, getImage } from 'astro:assets';
+
+/**
+ * "More photos" grid with a lightweight lightbox (owner feedback 2026-07-11:
+ * gallery photos must be clickable). Progressive: without JS each photo is a
+ * plain link to its full-size rendition; with JS it opens an in-page <dialog>
+ * (native focus trap, Esc to close, backdrop click to close).
+ */
+interface Props {
+  images: ImageMetadata[];
+  name: string;
+}
+
+const { images, name } = Astro.props;
+
+const items = await Promise.all(
+  images.map(async (img, i) => ({
+    img,
+    large: (await getImage({ src: img, width: 1600 })).src,
+    alt: `Photo ${i + 2} of ${name}`,
+  }))
+);
+---
+
+<div class="gallery">
+  <h2>More photos</h2>
+  <ul class="gallery-grid">
+    {
+      items.map(({ img, large, alt }) => (
+        <li>
+          <a class="gallery-link" href={large} target="_blank" rel="noopener" data-alt={alt}>
+            <Image src={img} alt={alt} width={640} class="gallery-photo" />
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</div>
+
+<dialog class="lightbox" aria-label={`Larger photo of ${name}`}>
+  <img class="lightbox-img" src="" alt="" />
+  <button class="lightbox-close btn btn--secondary btn--small" type="button">Close</button>
+</dialog>
+
+<style>
+  .gallery {
+    margin-top: var(--space-6);
+  }
+
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(12rem, 1fr));
+    gap: var(--space-3);
+    list-style: none;
+    margin: var(--space-3) 0 0;
+    padding: 0;
+  }
+
+  .gallery-link {
+    display: block;
+    cursor: zoom-in;
+  }
+
+  .gallery-photo {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    border-radius: var(--radius-card);
+    border: var(--border-hairline);
+  }
+
+  .lightbox {
+    /* the global `* { margin: 0 }` reset kills the UA's dialog centering —
+       restore it (owner feedback 2026-07-12: lightbox opened top-left) */
+    margin: auto;
+    border: 0;
+    border-radius: var(--radius-card);
+    padding: var(--space-2);
+    background: var(--bg-page);
+    max-width: min(92vw, 60rem);
+  }
+
+  .lightbox::backdrop {
+    background: rgb(0 0 0 / 0.65);
+  }
+
+  .lightbox-img {
+    display: block;
+    max-width: 100%;
+    max-height: 78vh;
+    border-radius: calc(var(--radius-card) - 4px);
+    margin-inline: auto;
+  }
+
+  .lightbox-close {
+    display: block;
+    margin: var(--space-2) auto 0;
+  }
+</style>
+
+<script>
+  const dialog = document.querySelector<HTMLDialogElement>('dialog.lightbox');
+  const img = dialog?.querySelector<HTMLImageElement>('.lightbox-img');
+  if (dialog && img) {
+    for (const link of document.querySelectorAll<HTMLAnchorElement>('.gallery-link')) {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        img.src = link.href;
+        img.alt = link.dataset.alt ?? '';
+        dialog.showModal();
+      });
+    }
+    dialog.querySelector('.lightbox-close')?.addEventListener('click', () => dialog.close());
+    dialog.addEventListener('click', (e) => {
+      // backdrop click: the dialog element itself is the target only outside content
+      if (e.target === dialog) dialog.close();
+    });
+  }
+</script>

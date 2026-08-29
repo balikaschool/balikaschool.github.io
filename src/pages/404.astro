@@ -1,0 +1,33 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Page not found">
+  <section class="section">
+    <div class="container">
+      <h1>Well, this is awkward.</h1>
+      <p class="intro">
+        This page seems to have wandered off — it happens to the best of us. Please use the
+        navigation links above or return to the home page.
+      </p>
+      <div class="cta-row">
+        <a class="btn btn--primary" href="/notices">View notices</a>
+        <a class="btn btn--secondary" href="/">Go home</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .intro {
+    margin-top: var(--space-3);
+    font-size: 1.15rem;
+  }
+
+  .cta-row {
+    display: flex;
+    gap: var(--space-3);
+    flex-wrap: wrap;
+    margin-top: var(--space-4);
+  }
+</style>

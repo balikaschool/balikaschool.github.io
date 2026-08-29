@@ -1,0 +1,222 @@
+---
+import { Image } from 'astro:assets';
+import siteLogo from '../assets/logo/balika.png';
+import { site } from '../config/site';
+
+const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
+
+const navI18nKeys: Record<string, string> = {
+  'Home': 'nav.home',
+  'About': 'nav.about',
+  'Notices': 'nav.notices',
+  'Faculty': 'nav.faculty',
+  'Contact': 'nav.contact',
+};
+---
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a class="brand" href="/">
+      <Image src={siteLogo} alt="Shree Sharada Balika Namuna Secondary School logo" height={100} densities={[1, 2]} />
+      <span class="brand-title" data-i18n-html="site.headerName"><span class="brand-name">Shree Sharada Balika Namuna</span><span class="brand-sub">Secondary School</span></span>
+    </a>
+    <button class="nav-toggle" aria-expanded="false" aria-controls="site-nav">Menu</button>
+    <nav id="site-nav" class="site-nav" aria-label="Main">
+      <ul>
+        <li>
+          <button
+            type="button"
+            class="lang-btn"
+            data-lang-toggle
+            onclick="window.toggleBalikaLanguage()"
+            aria-label="Switch Language"
+          >
+            <svg class="lang-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="2" y1="12" x2="22" y2="12"></line>
+              <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+            </svg>
+            <span class="lang-text">नेपाली</span>
+          </button>
+        </li>
+        {
+          site.nav.map(({ label, href }) => {
+            const normalized = href.replace(/\/$/, '') || '/';
+            const i18nKey = navI18nKeys[label] || 'nav.home';
+            return (
+              <li>
+                <a {href} data-i18n={i18nKey} aria-current={currentPath === normalized ? 'page' : undefined}>
+                  {label}
+                </a>
+              </li>
+            );
+          })
+        }
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    background: var(--bg-page);
+    border-bottom: var(--border-hairline);
+  }
+
+  .header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-3);
+    flex-wrap: wrap;
+    padding-block: var(--space-3);
+  }
+
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    text-decoration: none;
+  }
+
+  .brand img {
+    height: 96px;
+    width: auto;
+  }
+
+  .brand-title {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  .brand-title :global(.brand-name) {
+    font-weight: 800;
+    font-size: 1.25rem;
+    line-height: 1.15;
+    color: var(--text-body);
+    font-family: var(--font-display);
+    display: block;
+    white-space: nowrap;
+  }
+
+  .brand-title :global(.brand-sub) {
+    font-weight: 700;
+    line-height: 1.15;
+    color: var(--accent);
+    display: block;
+    white-space: nowrap;
+    margin-top: 2px;
+  }
+
+  :global(html[lang="en"]) .brand-title :global(.brand-sub) {
+    font-size: 1.56rem;
+  }
+
+  :global(html[lang="ne"]) .brand-title :global(.brand-sub) {
+    font-size: 1.3rem;
+  }
+
+  .site-nav ul {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .site-nav a:not(.btn) {
+    color: var(--text-body);
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  .site-nav a:not(.btn):hover {
+    color: var(--link);
+  }
+
+  .site-nav a[aria-current='page'] {
+    text-decoration: underline;
+    text-decoration-color: var(--accent);
+    text-decoration-thickness: 3px;
+    text-underline-offset: 6px;
+  }
+
+  .lang-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    height: 2.2rem;
+    padding: 0 0.9rem;
+    line-height: 1;
+    font-family: inherit;
+    font-weight: 600;
+    font-size: 0.86rem;
+    color: var(--text-body);
+    background: var(--color-white);
+    border: 1px solid color-mix(in srgb, var(--accent) 30%, transparent);
+    border-radius: 999px;
+    cursor: pointer;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+    transition: all 180ms ease;
+    margin-right: var(--space-1);
+  }
+
+  .lang-btn:hover {
+    background: var(--accent);
+    color: var(--color-white);
+    border-color: var(--accent);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px color-mix(in srgb, var(--accent) 25%, transparent);
+  }
+
+  .lang-icon {
+    flex-shrink: 0;
+    opacity: 0.85;
+  }
+
+  .nav-toggle {
+    display: none;
+    background: var(--secondary-bg);
+    color: var(--secondary-text);
+    border: 0;
+    border-radius: 999px;
+    padding: 0.5em 1.2em;
+    font: 600 1rem var(--font-body);
+    cursor: pointer;
+  }
+
+  @media (max-width: 800px) {
+    .nav-toggle {
+      display: inline-block;
+    }
+
+    .site-nav {
+      display: none;
+      width: 100%;
+    }
+
+    .site-nav.is-open {
+      display: block;
+    }
+
+    .site-nav ul {
+      flex-direction: column;
+      align-items: flex-start;
+      padding-block: var(--space-3);
+    }
+  }
+</style>
+
+<script>
+  const toggle = document.querySelector('.nav-toggle');
+  const nav = document.getElementById('site-nav');
+  toggle?.addEventListener('click', () => {
+    const open = toggle.getAttribute('aria-expanded') === 'true';
+    toggle.setAttribute('aria-expanded', String(!open));
+    nav?.classList.toggle('is-open', !open);
+  });
+</script>

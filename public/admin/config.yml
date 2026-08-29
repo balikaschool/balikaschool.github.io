@@ -1,0 +1,155 @@
+backend:
+  name: github
+  repo: charlies-animal-sanctuary/website
+  branch: main
+  auth_methods: [token]
+  base_url: https://sveltia-cms-auth.charliesanimalsanctuary.workers.dev
+
+media_folder: "src/assets/uploads"
+public_folder: "/src/assets/uploads"
+
+logo:
+  src: /src/assets/logo/balika.png
+  show_in_header: true
+
+app_title: Balika School CMS
+
+collections:
+  - name: notices
+    label: "School Notices"
+    label_singular: "Notice"
+    identifier_field: title
+    folder: "src/content/notices"
+    media_folder: "/src/assets/notices"
+    public_folder: "../../assets/notices"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { name: title, label: "Title", widget: string }
+      - {
+          name: category,
+          label: "Category",
+          widget: select,
+          options: ["Admission", "Examination", "Holiday", "Event", "General"],
+        }
+      - { name: date, label: "Date", widget: datetime }
+      - { name: photo, label: "Main photo", widget: image, required: false }
+      - {
+          name: gallery,
+          label: "More photos",
+          widget: list,
+          required: false,
+          field: { name: image, label: "Photo", widget: image },
+        }
+      - {
+          name: featured,
+          label: "Feature on homepage",
+          widget: boolean,
+          default: false,
+          required: false,
+        }
+      - {
+          name: pinned,
+          label: "Pin Notice",
+          widget: boolean,
+          default: false,
+          required: false,
+        }
+      - {
+          name: body,
+          label: "Notice Content",
+          widget: markdown,
+          required: false,
+        }
+
+  - name: teachers
+    label: "Teachers"
+    label_singular: "Teacher"
+    identifier_field: name
+    folder: "src/content/teachers"
+    media_folder: "/src/assets/teachers"
+    public_folder: "../../assets/teachers"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { name: name, label: "Name", widget: string }
+      - {
+          name: designation,
+          label: "Designation",
+          widget: string,
+          hint: "e.g. Principal, Mathematics Teacher",
+        }
+      - { name: photo, label: "Photo", widget: image }
+      - {
+          name: subject,
+          label: "Subject taught",
+          widget: string,
+          required: false,
+        }
+      - {
+          name: phone,
+          label: "Phone Number",
+          widget: string,
+          required: false,
+          hint: "Optional contact number",
+        }
+      - {
+          name: email,
+          label: "Email Address",
+          widget: string,
+          required: false,
+          hint: "Optional contact email",
+        }
+      - {
+          name: arrived,
+          label: "Joined Date",
+          widget: datetime,
+          required: false,
+        }
+      - {
+          name: memorial,
+          label: "In Memoriam / Retired",
+          widget: boolean,
+          default: false,
+          required: false,
+          hint: "For past/late teachers and founders",
+        }
+      - {
+          name: order,
+          label: "Order of display",
+          widget: number,
+          default: 0,
+          required: false,
+        }
+
+  - name: highlights
+    label: "Photo highlights"
+    label_singular: "Highlight"
+    identifier_field: title
+    folder: "src/content/highlights"
+    media_folder: "/src/assets/highlights"
+    public_folder: "../../assets/highlights"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - {
+          name: title,
+          label: "Caption",
+          widget: string,
+          hint: "A few words — also read aloud by screen readers",
+        }
+      - { name: photo, label: "Photo", widget: image }
+      - {
+          name: link,
+          label: "Post link",
+          widget: string,
+          required: false,
+          hint: "Optional external/social link for this highlight",
+        }
+      - {
+          name: order,
+          label: "Order",
+          widget: number,
+          default: 0,
+          required: false,
+        }

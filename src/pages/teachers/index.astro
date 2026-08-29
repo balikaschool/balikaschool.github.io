@@ -1,0 +1,102 @@
+---
+import { getCollection, type CollectionEntry } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import TeacherCard from '../../components/TeacherCard.astro';
+import { site } from '../../config/site';
+
+const { teachers } = site.copy;
+
+const all = await getCollection('teachers');
+const byOrder = (a: CollectionEntry<'teachers'>, b: CollectionEntry<'teachers'>) =>
+  a.data.order - b.data.order;
+
+const active = all.filter((e) => !e.data.memorial).sort(byOrder);
+const remembered = all.filter((e) => e.data.memorial).sort(byOrder);
+---
+
+<BaseLayout title={teachers.title}>
+  <section class="section">
+    <div class="container">
+      <h1 data-i18n="faculty.title">{teachers.title}</h1>
+      <p class="intro" data-i18n="faculty.intro">{teachers.intro}</p>
+      {
+        active.length > 0 ? (
+          <ul class="teacher-grid">
+            {active.map((e) => (
+              <li>
+                <TeacherCard
+                  name={e.data.name}
+                  photo={e.data.photo}
+                  designation={e.data.designation}
+                  subject={e.data.subject}
+                  phone={e.data.phone}
+                  email={e.data.email}
+                />
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p class="intro">Faculty profiles are on their way.</p>
+        )
+      }
+    </div>
+  </section>
+
+  {
+    remembered.length > 0 && (
+      <section class="section memorial-section">
+        <div class="container">
+          <h2 data-i18n="faculty.memorialHeading">{teachers.memorialHeading}</h2>
+          <p class="intro" data-i18n="faculty.memorialBlurb">{teachers.memorialBlurb}</p>
+          <ul class="teacher-grid">
+            {remembered.map((e) => (
+              <li>
+                <TeacherCard
+                  name={e.data.name}
+                  photo={e.data.photo}
+                  designation={e.data.designation}
+                  subject={e.data.subject}
+                  phone={e.data.phone}
+                  email={e.data.email}
+                />
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+    )
+  }
+</BaseLayout>
+
+<style>
+  .intro {
+    margin-top: var(--space-3);
+    font-size: 1.15rem;
+  }
+
+  .teacher-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-4);
+    list-style: none;
+    margin: var(--space-4) 0 0;
+    padding: 0;
+    width: 100%;
+  }
+
+  @media (max-width: 900px) {
+    .teacher-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 550px) {
+    .teacher-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .memorial-section {
+    border-top: var(--border-hairline);
+  }
+</style>

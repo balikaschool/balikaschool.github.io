@@ -1,0 +1,332 @@
+/* Base styles. Colors come ONLY from tokens.css variables. */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* the hidden attribute must always beat author display values (e.g. the
+   form fieldsets are display:grid, which would otherwise override it) */
+[hidden] {
+  display: none !important;
+}
+
+* {
+  margin: 0;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+body {
+  background: var(--bg-page);
+  color: var(--text-body);
+  font-family: var(--font-body);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+img,
+picture,
+svg,
+video {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  line-height: 1.15;
+  text-wrap: balance;
+}
+
+h1 {
+  font-size: clamp(2rem, 4.5vw, 3rem);
+}
+
+h2 {
+  font-size: clamp(1.5rem, 3vw, 2.125rem);
+}
+
+h3 {
+  font-size: 1.25rem;
+}
+
+p {
+  max-width: 65ch;
+}
+
+a {
+  color: var(--link);
+  text-underline-offset: 2px;
+}
+
+a:hover {
+  color: var(--text-body);
+}
+
+:focus-visible {
+  outline: 3px solid var(--cta-bg);
+  outline-offset: 2px;
+}
+
+.container {
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--space-4);
+}
+
+.section {
+  padding-block: var(--space-6);
+}
+
+.section--dark {
+  background: var(--bg-dark);
+  color: var(--text-on-dark);
+}
+
+.section--dark a {
+  color: var(--text-on-dark);
+}
+
+.btn {
+  display: inline-block;
+  padding: 0.65em 1.4em;
+  border: 0;
+  border-radius: 999px;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.btn--primary {
+  background: var(--cta-bg);
+  color: var(--cta-text);
+}
+
+.btn--primary:hover {
+  background: var(--text-body);
+  color: var(--cta-text);
+}
+
+.btn--small {
+  font-size: 0.9rem;
+  padding: 0.5em 1.1em;
+}
+
+.btn--secondary {
+  background: var(--secondary-bg);
+  color: var(--secondary-text);
+}
+
+.btn--secondary:hover {
+  background: var(--text-body);
+  color: var(--secondary-text);
+}
+
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 100;
+  background: var(--bg-dark);
+  color: var(--text-on-dark);
+  padding: var(--space-2) var(--space-3);
+  border-radius: 0 0 var(--radius-card) 0;
+}
+
+.skip-link:focus {
+  left: 0;
+}
+
+/* forms (Intake, Contact — wired to the form service in phase 4) */
+.form-grid {
+  display: grid;
+  gap: var(--space-3);
+  max-width: 36rem;
+}
+
+.form-field {
+  display: grid;
+  gap: var(--space-1);
+}
+
+.form-field label {
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.form-field input,
+.form-field textarea,
+.form-field select {
+  font: 1rem var(--font-body);
+  color: var(--text-body);
+  background: var(--color-white);
+  border: 1px solid var(--accent);
+  border-radius: calc(var(--radius-card) / 2);
+  padding: 0.6em 0.8em;
+  width: 100%;
+}
+
+.form-field textarea {
+  min-height: 8rem;
+  resize: vertical;
+}
+
+.form-grid .btn {
+  justify-self: start;
+}
+
+.form-note {
+  font-size: 0.85rem;
+}
+
+/* live region stays in the DOM (and accessibility tree) even while empty;
+   the box styling only appears once it has a message */
+.form-status {
+  font-weight: 600;
+}
+
+.form-status:not(:empty) {
+  border: 1.5px solid var(--accent);
+  border-radius: var(--radius-card);
+  padding: var(--space-2) var(--space-3);
+}
+
+.form-grid fieldset {
+  border: var(--border-hairline);
+  border-radius: var(--radius-card);
+  padding: var(--space-3);
+  display: grid;
+  gap: var(--space-3);
+  margin: 0;
+}
+
+.form-grid legend {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.1rem;
+  padding-inline: var(--space-1);
+}
+
+/* honeypot: visually gone, still in the POST body (spam filter, brief §7) */
+.hp-field {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+/* status pill (Pending) + temperament tags — Camel is decorative only */
+.pill {
+  display: inline-block;
+  border: 1.5px solid var(--accent);
+  border-radius: 999px;
+  padding: 0.15em 0.8em;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.tag-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.tag-row li {
+  border: 1px solid var(--accent);
+  border-radius: 999px;
+  padding: 0.1em 0.75em;
+  font-size: 0.85rem;
+}
+
+/* shared animal-card grid used on Adopt, Happy Tails, and Our Family */
+.animal-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+  gap: var(--space-4);
+  list-style: none;
+  margin: var(--space-4) 0 0;
+  padding: 0;
+}
+
+/* §6c motion — gentle only, and ONLY for users who haven't opted out.
+   .reveal is added by JS (BaseLayout) to below-fold sections; without JS or
+   with reduced motion, nothing is ever hidden. `screen`-scoped so printing
+   never hides below-fold sections (reduced-motion alone matches print too). */
+@media screen and (prefers-reduced-motion: no-preference) {
+  .reveal {
+    opacity: 0;
+    translate: 0 16px;
+    transition:
+      opacity 550ms ease-out,
+      translate 550ms ease-out;
+  }
+
+  .reveal.is-visible {
+    opacity: 1;
+    translate: 0 0;
+  }
+
+  .btn {
+    transition:
+      background-color 180ms ease,
+      transform 180ms ease;
+  }
+
+  .btn:hover {
+    transform: translateY(-1px);
+  }
+
+  a {
+    transition: color 150ms ease;
+  }
+}
+
+/* §9: placeholder content must be unmistakable — this chip marks it */
+.placeholder-chip {
+  display: inline-block;
+  padding: 0.2em 0.9em;
+  border: 2px dashed var(--accent);
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  margin-bottom: var(--space-3);
+}
+
+/* Smooth View Transitions for seamless navigation */
+@media screen and (prefers-reduced-motion: no-preference) {
+  ::view-transition-old(root) {
+    animation: 180ms ease-out both fade-out-page;
+  }
+  ::view-transition-new(root) {
+    animation: 250ms cubic-bezier(0.16, 1, 0.3, 1) both fade-in-page;
+  }
+
+  @keyframes fade-out-page {
+    from { opacity: 1; transform: scale(1); }
+    to { opacity: 0; transform: scale(0.995); }
+  }
+
+  @keyframes fade-in-page {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+}

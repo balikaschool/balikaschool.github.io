@@ -1,0 +1,122 @@
+---
+import { Image } from 'astro:assets';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { site } from '../config/site';
+import assemblyImage from '../assets/about/school-building.jpg';
+import scoutImage from '../assets/about/scout.jpg';
+import tourImage from '../assets/about/tour.jpeg';
+
+const { about } = site.copy;
+---
+
+<BaseLayout title={about.title}>
+  <section class="section">
+    <div class="container about-inner">
+      <div class="about-text">
+        <h1 data-i18n="about.title">{about.title}</h1>
+        <p class="about-intro" data-i18n="about.intro">{about.intro}</p>
+
+        <section class="about-section">
+          <h2 data-i18n="about.legacyTitle">{about.sections[0].heading}</h2>
+          <p data-i18n="about.legacyP1">{about.sections[0].paragraphs[0]}</p>
+          <p data-i18n="about.legacyP2">{about.sections[0].paragraphs[1]}</p>
+        </section>
+
+        <section class="about-section">
+          <h2 data-i18n="about.academicTitle">{about.sections[1].heading}</h2>
+          <p data-i18n="about.academicP1">{about.sections[1].paragraphs[0]}</p>
+          <p data-i18n="about.academicP2">{about.sections[1].paragraphs[1]}</p>
+        </section>
+
+        <section class="about-section">
+          <h2 data-i18n="about.facilitiesTitle">{about.sections[2].heading}</h2>
+          <p data-i18n="about.facilitiesP1">{about.sections[2].paragraphs[0]}</p>
+          <p data-i18n="about.facilitiesP2">{about.sections[2].paragraphs[1]}</p>
+        </section>
+      </div>
+      <aside class="about-media">
+        <figure>
+          <Image
+            src={assemblyImage}
+            alt="Assembly of students at Shree Sharada Balika Namuna Secondary School"
+            width={640}
+            class="about-photo"
+          />
+          <figcaption data-i18n="about.buildingCap">Assembly of students.</figcaption>
+        </figure>
+        <figure>
+          <Image
+            src={scoutImage}
+            alt="School scout troop"
+            width={640}
+            class="about-photo"
+          />
+          <figcaption data-i18n="about.scoutCap">School scout troop.</figcaption>
+        </figure>
+        <figure>
+          <Image
+            src={tourImage}
+            alt="Educational tour"
+            width={640}
+            class="about-photo"
+          />
+          <figcaption data-i18n="about.tourCap">Educational tour.</figcaption>
+        </figure>
+      </aside>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .about-inner {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: var(--space-5);
+    align-items: start;
+  }
+
+  .about-text p {
+    margin-top: var(--space-3);
+  }
+
+  .about-intro {
+    font-size: 1.15rem;
+  }
+
+  .about-section {
+    margin-top: var(--space-5);
+  }
+
+  .about-media {
+    display: grid;
+    gap: var(--space-4);
+    position: sticky;
+    top: var(--space-4);
+  }
+
+  .about-photo {
+    width: 100%;
+    height: auto;
+    border-radius: var(--radius-card);
+    border: var(--border-hairline);
+  }
+
+  figure {
+    margin: 0;
+  }
+
+  figcaption {
+    font-size: 0.9rem;
+    margin-top: var(--space-2);
+  }
+
+  @media (max-width: 800px) {
+    .about-inner {
+      grid-template-columns: 1fr;
+    }
+
+    .about-media {
+      position: static;
+    }
+  }
+</style>

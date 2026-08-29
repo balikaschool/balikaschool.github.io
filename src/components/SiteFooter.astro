@@ -1,0 +1,141 @@
+---
+import { Image } from 'astro:assets';
+import balikaStamp from '../assets/logo/balika-stamp.png';
+import { site } from '../config/site';
+
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer section--dark">
+  <div class="container footer-inner">
+    <div class="footer-brand">
+      <Image src={balikaStamp} alt="Shree Sharada Balika Stamp Logo" height={104} densities={[1, 2]} class="footer-logo" />
+      <p data-i18n="site.location">{site.location}</p>
+    </div>
+    <div class="footer-actions">
+      <ul class="footer-social">
+        {site.social.facebook && <li><a href={site.social.facebook} target="_blank" rel="noopener noreferrer">Facebook</a></li>}
+        {site.social.map && <li><a href={site.social.map} target="_blank" rel="noopener noreferrer" data-i18n="footer.map">Location Map</a></li>}
+      </ul>
+      <ul class="footer-phones">
+        {site.phones.map(ph => (
+          <li><a href={`tel:${ph.replace(/-/g, '')}`}>{ph}</a></li>
+        ))}
+      </ul>
+      <p class="footer-email"><a href={`mailto:${site.email}`}>{site.email}</a></p>
+    </div>
+  </div>
+  <div class="container footer-legal">
+    <p>&copy; {year} <span data-i18n="site.name">{site.name}</span>. <span data-i18n="footer.rights">All rights reserved.</span></p>
+    <a href="/admin/" class="footer-admin-link">Admin</a>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    padding-block: var(--space-5);
+  }
+
+  .footer-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--space-4);
+    flex-wrap: wrap;
+  }
+
+  .footer-brand {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .footer-logo {
+    height: 104px;
+    width: auto;
+    margin-bottom: var(--space-3);
+    display: block;
+  }
+
+  .footer-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    text-align: right;
+    gap: var(--space-3);
+  }
+
+  .footer-social {
+    display: flex;
+    justify-content: flex-end;
+    gap: var(--space-4);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .footer-phones {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: var(--space-3);
+    justify-content: flex-end;
+    flex-wrap: wrap;
+  }
+
+  .footer-social a,
+  .footer-phones a,
+  .footer-email a {
+    color: var(--text-on-dark);
+    text-decoration: none;
+    transition: opacity 150ms ease;
+  }
+
+  .footer-social a:hover,
+  .footer-phones a:hover,
+  .footer-email a:hover {
+    opacity: 0.85;
+    text-decoration: underline;
+  }
+
+  .footer-legal {
+    margin-top: var(--space-4);
+    padding-top: var(--space-3);
+    border-top: 1px solid color-mix(in srgb, var(--text-on-dark) 15%, transparent);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--space-3);
+    font-size: 0.9rem;
+  }
+
+  .footer-admin-link {
+    margin-left: auto;
+    color: color-mix(in srgb, var(--text-on-dark) 65%, transparent);
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-decoration: none;
+    padding: 0.3rem 0.75rem;
+    border: 1px solid color-mix(in srgb, var(--text-on-dark) 20%, transparent);
+    border-radius: var(--radius-card);
+    transition: all 180ms ease;
+    white-space: nowrap;
+  }
+
+  .footer-admin-link:hover {
+    color: var(--text-on-dark);
+    border-color: var(--text-on-dark);
+    background: color-mix(in srgb, var(--text-on-dark) 12%, transparent);
+  }
+
+  @media (max-width: 600px) {
+    .footer-actions {
+      align-items: flex-start;
+      text-align: left;
+    }
+    .footer-social {
+      justify-content: flex-start;
+    }
+  }
+</style>

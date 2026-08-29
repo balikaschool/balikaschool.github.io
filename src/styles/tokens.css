@@ -1,0 +1,56 @@
+/*
+  Design tokens — brief §6a "Rustic Earthy Tones".
+  THE ONLY PLACE A COLOR MAY BE DEFINED. Never hand-pick a hex anywhere else.
+
+  Approved text pairings, verified by scripts/check-contrast.mjs on every build:
+    Ebony on Cream (body text)      White on Coffee Bean (primary CTA)
+    Cream on Ebony (dark sections)  White on Dusty Olive (secondary button)
+    Coffee Bean on Cream (text links)
+
+  Camel is decorative only (tags, borders, hover) — never text.
+  Dusty Olive is fill-only: white text ON it passes AA, but olive text on
+  cream measures ~4.2:1 (below AA) — text links on light backgrounds use
+  Coffee Bean instead.
+*/
+:root {
+  /* palette */
+  --color-cream: #FAF7F2;  /* Soft warm alabaster cream background */
+  --color-ebony: #1E2E2D;  /* Dark Spruce/Ebony - body text / dark sections */
+  --color-coffee: #00706E; /* Deep Teal/Turquoise - primary CTA / uniform match */
+  --color-olive: #A23B24;  /* Terracotta Red - secondary button / building brick match */
+  --color-camel: #00A3A0;  /* Vibrant Teal/Turquoise - accent/decor match */
+  --color-white: #FFFFFF;
+
+  /* roles */
+  --bg-page: var(--color-cream);
+  --bg-dark: var(--color-ebony);
+  --text-body: var(--color-ebony);
+  --text-on-dark: var(--color-cream);
+  --cta-bg: var(--color-coffee);
+  --cta-text: var(--color-white);
+  --secondary-bg: var(--color-olive);
+  --secondary-text: var(--color-white);
+  --link: var(--color-coffee);
+  --accent: var(--color-camel);
+
+  /* type */
+  /* Lora replaced Fraunces 2026-07-12 (owner: Fraunces' hooked lowercase f is
+     a fixed design quirk of that typeface — no axis or feature removes it) */
+  --font-display: 'Lora Variable', Georgia, 'Times New Roman', serif;
+  --font-body: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+  /* shape (§6d) */
+  --radius-card: 12px;
+  --border-hairline: 1px solid color-mix(in srgb, var(--color-camel) 55%, transparent);
+
+  /* spacing */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 1rem;
+  --space-4: 1.5rem;
+  --space-5: 2.5rem;
+  --space-6: 4rem;
+
+  /* layout */
+  --container-max: 72rem;
+}

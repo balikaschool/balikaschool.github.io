@@ -1,0 +1,41 @@
+---
+/**
+ * §9 placeholder media block: an unmistakably-temporary striped stand-in for
+ * any image/video slot. Real assets replace these one by one; each usage is
+ * tracked in progress.md.
+ */
+interface Props {
+  label: string;
+  ratio?: string; // CSS aspect-ratio value, e.g. "16 / 9", "4 / 5"
+}
+
+const { label, ratio = '4 / 3' } = Astro.props;
+---
+
+<div class="ph-block" style={`aspect-ratio: ${ratio}`} role="img" aria-label={`Placeholder: ${label}`}>
+  <span>{label}</span>
+</div>
+
+<style>
+  .ph-block {
+    display: grid;
+    place-items: center;
+    width: 100%;
+    background: repeating-linear-gradient(
+      45deg,
+      color-mix(in srgb, var(--accent) 18%, transparent) 0 12px,
+      transparent 12px 24px
+    );
+    border: 2px dashed var(--accent);
+    border-radius: var(--radius-card);
+    padding: var(--space-3);
+    color: var(--text-body);
+    font-weight: 600;
+    text-align: center;
+  }
+
+  .ph-block span {
+    font-size: 0.9rem;
+    max-width: 26ch;
+  }
+</style>
