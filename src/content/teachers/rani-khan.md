@@ -1,7 +1,7 @@
 ---
 name: Rani Khan
 designation: Teacher
-photo: ../../assets/teachers/T8_restored.jpeg
+photo: ../../assets/teachers/T3_restored.jpeg
 subject: Primary
 phone: '9819090078'
 address: Dharan-8
