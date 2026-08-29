@@ -3,7 +3,7 @@ backend:
   repo: charlies-animal-sanctuary/website
   branch: main
   auth_methods: [token]
-  base_url: https://shree-sharada-balika-namuna.github.io
+  base_url: https://balikaschool.github.io
 
 media_folder: "src/assets/uploads"
 public_folder: "/src/assets/uploads"

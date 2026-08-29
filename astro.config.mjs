@@ -6,7 +6,7 @@ import sitemap from '@astrojs/sitemap';
 // static files (approved deviation from brief §8.1: the adapter is SSR-only).
 export default defineConfig({
   // Absolute-URL base for canonical links, Open Graph images, and the sitemap.
-  site: 'https://shree-sharada-balika-namuna.github.io',
+  site: 'https://balikaschool.github.io',
   integrations: [sitemap()],
   redirects: {
     '/admin': '/admin/index.html',
