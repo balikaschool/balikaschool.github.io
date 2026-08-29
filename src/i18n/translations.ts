@@ -88,9 +88,9 @@ export const translations = {
     'faculty.title': 'Faculty & Administration',
     'faculty.intro':
       'Meet our experienced educators and leadership team in Dharan, Sunsari, who guide our students with dedication and care.',
-    'faculty.memorialHeading': 'In loving memory & honor',
+    'faculty.memorialHeading': 'Former Teachers & Staff',
     'faculty.memorialBlurb':
-      'Remembering the visionary founders and educators who shaped our legacy in Dharan.',
+      'Honoring our former teachers, leadership, and staff members who contributed to the school\'s legacy.',
 
     // Contact Page
     'contact.title': 'Contact Us',
@@ -196,9 +196,9 @@ export const translations = {
     'faculty.title': 'शिक्षक तथा प्रशासनिक टोली',
     'faculty.intro':
       'धरान, सुनसरीमा अवस्थित हाम्रा अनुभवी, समर्पित शिक्षक तथा प्रशासकहरूसँग परिचय गर्नुहोस्।',
-    'faculty.memorialHeading': 'भावपूर्ण श्रद्धाञ्जली तथा सम्मान',
+    'faculty.memorialHeading': 'पूर्व शिक्षक तथा कर्मचारी वर्ग',
     'faculty.memorialBlurb':
-      'विद्यालयको जग बसाल्नुहुने पूर्व संस्थापक तथा दिवंगत शिक्षकहरूप्रति उच्च सम्मान र स्मरण।',
+      'विद्यालयको स्थापना, विकास र मार्गदर्शनमा अमूल्य योगदान पुर्याउनुहुने पूर्व संस्थापक, शिक्षक तथा कर्मचारीहरूप्रति उच्च सम्मान।',
 
     // Contact Page
     'contact.title': 'सम्पर्क गर्नुहोस्',

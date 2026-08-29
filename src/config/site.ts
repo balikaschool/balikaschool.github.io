@@ -117,8 +117,8 @@ export const site = {
       title: 'Faculty & Administration',
       intro:
         'Meet our experienced educators and leadership team in Dharan, Sunsari, who guide our students with dedication and care.',
-      memorialHeading: 'In loving memory & honor',
-      memorialBlurb: 'Remembering the visionary founders and educators who shaped our legacy in Dharan.',
+      memorialHeading: 'Former Teachers & Staff',
+      memorialBlurb: 'Honoring our former teachers, leadership, and staff members who contributed to the school\'s legacy.',
     },
 
     contact: {
