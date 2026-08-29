@@ -1,20 +1,6 @@
 import { defineCollection, z } from 'astro:content';
 import { glob } from 'astro/loaders';
 
-/**
- * Content collections (brief §4d as amended, on Astro's content-layer API).
- * RULE (CLAUDE.md): fields must stay in sync with public/admin/config.yml —
- * any field change updates both files in the same commit.
- * Photos use image() so every CMS upload goes through Astro's optimizer.
- *
- * OWNER-PROOFING (learned in the 2026-07-11 publish test & 2026-08-29 CMS test):
- * Sveltia CMS writes optional fields the owner leaves blank as '' (and lists as []).
- * Furthermore, unquoted dates in YAML (like dob: 2033-07-05) or numbers are parsed
- * by js-yaml as Date objects or Numbers before Zod validation.
- * Every optional string field passes through `toOptionalString`, which turns
- * '', null, Date objects, and numbers into valid strings or undefined before validation.
- */
-
 const blank = (v: unknown) => (v === '' || v === null ? undefined : v);
 
 const toOptionalString = (v: unknown) => {
