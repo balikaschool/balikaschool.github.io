@@ -61,6 +61,22 @@ collections:
           widget: markdown,
           required: false,
         }
+      - name: attachments
+        label: "Attachments"
+        label_singular: "Attachment"
+        widget: list
+        required: false
+        hint: "Upload files (PDF, Word, ZIP, etc.) that visitors can download"
+        fields:
+          - name: label
+            label: "Display label"
+            widget: string
+            required: false
+            hint: "Readable name shown on the page, e.g. Result Sheet PDF"
+          - name: file
+            label: "File"
+            widget: file
+            hint: "Upload any file type: PDF, DOCX, XLSX, ZIP, etc."
 
   - name: teachers
     label: "Teachers"

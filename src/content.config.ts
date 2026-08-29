@@ -28,6 +28,19 @@ const notices = defineCollection({
       gallery: z.preprocess(blank, z.array(image()).optional()),
       featured: z.preprocess(blank, z.boolean().default(false)),
       pinned: z.preprocess(blank, z.boolean().default(false)),
+      // Downloadable attachments: docs, PDFs, ZIPs, etc.
+      // Stored as plain strings (paths relative to public/) — not image().
+      attachments: z.preprocess(
+        blank,
+        z
+          .array(
+            z.object({
+              label: z.preprocess(blank, z.string().optional()),
+              file: z.string(),
+            })
+          )
+          .optional()
+      ),
     }),
 });
 
