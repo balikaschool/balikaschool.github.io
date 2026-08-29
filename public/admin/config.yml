@@ -76,6 +76,8 @@ collections:
           - name: file
             label: "File"
             widget: file
+            media_folder: "/public/uploads"
+            public_folder: "/uploads"
             hint: "Upload any file type: PDF, DOCX, XLSX, ZIP, etc."
 
   - name: teachers
