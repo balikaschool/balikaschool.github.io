@@ -9,7 +9,7 @@ media_folder: "src/assets/uploads"
 public_folder: "/src/assets/uploads"
 
 logo:
-  src: /src/assets/logo/balika.png
+  src: https://balikaschool.github.io/admin/balika.png
   show_in_header: true
 
 app_title: Balika School CMS
