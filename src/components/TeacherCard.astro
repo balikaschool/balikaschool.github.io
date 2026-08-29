@@ -7,17 +7,27 @@ interface Props {
   designation: string;
   subject?: string;
   phone?: string;
-  email?: string;
+  address?: string;
+  dob?: string;
+  bloodGroup?: string;
 }
 
-const { name, photo, designation, subject, phone, email } = Astro.props;
+const { name, photo, designation, subject, phone, address, dob, bloodGroup } = Astro.props;
 const role = [designation, subject].filter(Boolean).join(' · ');
+
+const initials = name
+  .split(' ')
+  .map((part) => part[0])
+  .filter(Boolean)
+  .slice(0, 2)
+  .join('')
+  .toUpperCase();
 ---
 
 <article class="teacher-card">
-  {
-    photo && (
-      <div class="card-media">
+  <div class="card-media">
+    {
+      photo ? (
         <Image
           src={photo}
           alt={`Photo of ${name}`}
@@ -26,18 +36,68 @@ const role = [designation, subject].filter(Boolean).join(' · ');
           sizes="(max-width: 580px) 92vw, 280px"
           class="card-photo"
         />
-      </div>
-    )
-  }
+      ) : (
+        <div class="avatar-fallback">
+          <span>{initials}</span>
+        </div>
+      )
+    }
+    {
+      bloodGroup && (
+        <span class="blood-badge" title={`Blood Group: ${bloodGroup}`}>
+          <svg class="blood-icon" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/>
+          </svg>
+          {bloodGroup}
+        </span>
+      )
+    }
+  </div>
   <div class="card-body">
-    <h3 class="card-name">{name}</h3>
-    <p class="card-role">{role}</p>
-    {(phone || email) && (
-      <div class="card-contact">
-        {phone && <a href={`tel:${phone}`}>{phone}</a>}
-        {email && <a href={`mailto:${email}`}>{email}</a>}
-      </div>
-    )}
+    <div class="card-header">
+      <h3 class="card-name">{name}</h3>
+      <p class="card-role">{role}</p>
+    </div>
+
+    {
+      (address || dob) && (
+        <div class="card-details">
+          {address && (
+            <div class="detail-item">
+              <svg class="detail-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/>
+                <circle cx="12" cy="10" r="3"/>
+              </svg>
+              <span>{address}</span>
+            </div>
+          )}
+          {dob && (
+            <div class="detail-item">
+              <svg class="detail-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect width="18" height="18" x="3" y="4" rx="2" ry="2"/>
+                <line x1="16" x2="16" y1="2" y2="6"/>
+                <line x1="8" x2="8" y1="2" y2="6"/>
+                <line x1="3" x2="21" y1="10" y2="10"/>
+              </svg>
+              <span>DOB: {dob}</span>
+            </div>
+          )}
+        </div>
+      )
+    }
+
+    {
+      phone && (
+        <div class="card-contact">
+          <a href={`tel:${phone}`} class="contact-link">
+            <svg class="detail-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+            </svg>
+            <span>{phone}</span>
+          </a>
+        </div>
+      )
+    }
   </div>
 </article>
 
@@ -50,26 +110,65 @@ const role = [designation, subject].filter(Boolean).join(' · ');
     flex-direction: column;
     background: var(--color-white);
     height: 100%;
+    position: relative;
+    transition: transform 200ms ease, box-shadow 200ms ease;
   }
 
   @media (prefers-reduced-motion: no-preference) {
-    .teacher-card {
-      transition:
-        transform 200ms ease,
-        box-shadow 200ms ease;
-    }
-
     .teacher-card:hover {
       transform: translateY(-3px);
       box-shadow: 0 8px 22px rgb(0 0 0 / 0.08);
     }
   }
 
+  .card-media {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 53 / 63;
+    background: color-mix(in srgb, var(--accent, #0284c7) 8%, var(--color-white, #ffffff));
+    overflow: hidden;
+  }
+
   .card-photo {
     width: 100%;
-    aspect-ratio: 1 / 1;
-    object-fit: cover;
+    height: 100%;
+    object-fit: contain;
     display: block;
+  }
+
+  .avatar-fallback {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #1e3a8a, #0284c7);
+    color: #ffffff;
+    font-size: 2.5rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+  }
+
+  .blood-badge {
+    position: absolute;
+    top: var(--space-2, 0.5rem);
+    right: var(--space-2, 0.5rem);
+    background: rgba(220, 38, 38, 0.92);
+    color: #ffffff;
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 0.2rem 0.55rem;
+    border-radius: 9999px;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(4px);
+  }
+
+  .blood-icon {
+    width: 0.7rem;
+    height: 0.7rem;
   }
 
   .card-body {
@@ -80,10 +179,17 @@ const role = [designation, subject].filter(Boolean).join(' · ');
     flex-grow: 1;
   }
 
+  .card-header {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
   .card-name {
     margin: 0;
     font-size: 1.1rem;
     line-height: 1.25;
+    font-weight: 700;
   }
 
   .card-role {
@@ -94,25 +200,50 @@ const role = [designation, subject].filter(Boolean).join(' · ');
     line-height: 1.35;
   }
 
+  .card-details {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    font-size: 0.8rem;
+    color: var(--text-muted, #64748b);
+  }
+
+  .detail-item {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+
+  .detail-icon {
+    width: 0.9rem;
+    height: 0.9rem;
+    flex-shrink: 0;
+    opacity: 0.75;
+  }
+
   .card-contact {
     display: flex;
     flex-direction: column;
-    gap: 0.3rem;
+    gap: 0.35rem;
     margin-top: auto;
     padding-top: var(--space-2);
-    border-top: 1px solid color-mix(in srgb, var(--accent) 25%, transparent);
+    border-top: 1px solid color-mix(in srgb, var(--accent, #0284c7) 20%, transparent);
     font-size: 0.8rem;
   }
 
-  .card-contact a {
+  .contact-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
     color: var(--text-body);
     text-decoration: none;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    transition: color 150ms ease;
   }
 
-  .card-contact a:hover {
+  .contact-link:hover {
     color: var(--link);
   }
 </style>

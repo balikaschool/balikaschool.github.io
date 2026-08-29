@@ -1,11 +1,12 @@
 ---
-name: Dharma Narayan Singh
-designation: Principal
-photo: ../../assets/teachers/1000064783.jpg
-subject: Science
-phone: +977-9842054429
-email: ''
-arrived: ''
+name: "Dharma Narayan Singh"
+designation: "Principal"
+photo: "../../assets/teachers/head sir_restored.jpeg"
+subject: "Science"
+phone: "9842054429"
+address: "Dharan-16"
+dob: "2026-11-26"
+bloodGroup: "A+"
 memorial: false
 order: 1
 ---

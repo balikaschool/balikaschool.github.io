@@ -112,11 +112,25 @@ collections:
           hint: "Optional contact number",
         }
       - {
-          name: email,
-          label: "Email Address",
+          name: address,
+          label: "Address",
           widget: string,
           required: false,
-          hint: "Optional contact email",
+          hint: "Optional address / location",
+        }
+      - {
+          name: dob,
+          label: "Date of Birth",
+          widget: string,
+          required: false,
+          hint: "Optional date of birth (e.g. YYYY-MM-DD)",
+        }
+      - {
+          name: bloodGroup,
+          label: "Blood Group",
+          widget: string,
+          required: false,
+          hint: "Optional blood group (e.g. A+, B+, O+)",
         }
       - {
           name: arrived,

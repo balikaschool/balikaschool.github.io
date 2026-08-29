@@ -53,7 +53,9 @@ const teachers = defineCollection({
       photo: z.preprocess(blank, image().optional()),
       subject: z.preprocess(blank, z.string().optional()),
       phone: z.preprocess(blank, z.string().optional()),
-      email: z.preprocess(blank, z.string().optional()),
+      address: z.preprocess(blank, z.string().optional()),
+      dob: z.preprocess(blank, z.string().optional()),
+      bloodGroup: z.preprocess(blank, z.string().optional()),
       arrived: z.preprocess(blank, z.coerce.date().optional()),
       // Late teachers or founders that we want to remember
       memorial: z.preprocess(blank, z.boolean().default(false)),
