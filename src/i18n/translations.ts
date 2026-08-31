@@ -56,6 +56,8 @@ export const translations = {
     'cat.event': 'Event',
     'cat.general': 'General',
     'cat.pinned': '📌 Pinned',
+    'cat.all': 'All',
+    'notices.rss': 'RSS Feed',
 
     // Life at School & Media
     'video.heading': 'School Campus & Periphery Overview',
@@ -164,6 +166,8 @@ export const translations = {
     'cat.event': 'कार्यक्रम',
     'cat.general': 'साधारण',
     'cat.pinned': '📌 प्रमुख',
+    'cat.all': 'सबै',
+    'notices.rss': 'RSS फिड',
 
     // Life at School & Media
     'video.heading': 'विद्यालय परिसर तथा वरपरको दृश्य',

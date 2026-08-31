@@ -17,13 +17,33 @@ const sorted = [
 <BaseLayout title={notices.title}>
   <section class="section">
     <div class="container">
-      <h1 data-i18n="notices.title">{notices.title}</h1>
+      <div class="notices-header-row">
+        <h1 data-i18n="notices.title">{notices.title}</h1>
+        <a href="/feed.xml" class="rss-link" aria-label="Subscribe to RSS Feed" target="_blank">
+          <svg class="rss-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 11a9 9 0 0 1 9 9"></path>
+            <path d="M4 4a16 16 0 0 1 16 16"></path>
+            <circle cx="5" cy="19" r="1"></circle>
+          </svg>
+          <span data-i18n="notices.rss">RSS Feed</span>
+        </a>
+      </div>
       <p class="intro" data-i18n="notices.intro">{notices.intro}</p>
+
+      <div class="filter-container">
+        <button class="filter-btn active" data-category="all" data-i18n="cat.all">All</button>
+        <button class="filter-btn" data-category="Admission" data-i18n="cat.admission">Admission</button>
+        <button class="filter-btn" data-category="Examination" data-i18n="cat.examination">Examination</button>
+        <button class="filter-btn" data-category="Holiday" data-i18n="cat.holiday">Holiday</button>
+        <button class="filter-btn" data-category="Event" data-i18n="cat.event">Event</button>
+        <button class="filter-btn" data-category="General" data-i18n="cat.general">General</button>
+      </div>
+
       {
         sorted.length > 0 ? (
           <ul class="notice-grid">
             {sorted.map((e) => (
-              <li>
+              <li data-category={e.data.category}>
                 <NoticeCard
                   title={e.data.title}
                   href={`/notices/${e.id}`}
@@ -45,10 +65,137 @@ const sorted = [
   </section>
 </BaseLayout>
 
+<script>
+  function initCategoryFilter() {
+    const buttons = document.querySelectorAll('.filter-btn');
+    const items = document.querySelectorAll('.notice-grid > li');
+    const emptyState = document.querySelector('.empty-state');
+
+    if (!buttons.length || !items.length) return;
+
+    buttons.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        // Remove active class from all buttons
+        buttons.forEach((b) => b.classList.remove('active'));
+        // Add active class to clicked button
+        btn.classList.add('active');
+
+        const filter = btn.getAttribute('data-category');
+        let visibleCount = 0;
+
+        items.forEach((item) => {
+          const itemCategory = item.getAttribute('data-category');
+          if (filter === 'all' || itemCategory === filter) {
+            (item as HTMLElement).style.display = '';
+            visibleCount++;
+          } else {
+            (item as HTMLElement).style.display = 'none';
+          }
+        });
+
+        if (emptyState) {
+          (emptyState as HTMLElement).style.display = visibleCount === 0 ? 'grid' : 'none';
+        }
+      });
+    });
+  }
+
+  // Run on initial load and page transitions
+  document.addEventListener('DOMContentLoaded', initCategoryFilter);
+  document.addEventListener('astro:page-load', initCategoryFilter);
+</script>
+
 <style>
+  .notices-header-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-3);
+    flex-wrap: wrap;
+    border-bottom: var(--border-hairline);
+    padding-bottom: var(--space-3);
+    margin-bottom: var(--space-3);
+  }
+
+  .notices-header-row h1 {
+    margin: 0;
+  }
+
+  .rss-link {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    color: var(--secondary-bg);
+    font-weight: 700;
+    font-size: 0.95rem;
+    text-decoration: none;
+    padding: 0.45rem 1rem;
+    border: 1.5px solid var(--secondary-bg);
+    border-radius: 999px;
+    background: var(--color-white);
+    transition: all 180ms ease;
+  }
+
+  .rss-link:hover {
+    background: var(--secondary-bg);
+    color: var(--color-white);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px color-mix(in srgb, var(--secondary-bg) 25%, transparent);
+  }
+
+  .rss-link:active {
+    transform: translateY(0);
+  }
+
+  .rss-icon {
+    flex-shrink: 0;
+  }
+
   .intro {
     margin-top: var(--space-3);
     font-size: 1.15rem;
+  }
+
+  .filter-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    margin-top: var(--space-4);
+    margin-bottom: var(--space-4);
+  }
+
+  .filter-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5rem 1.1rem;
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-body);
+    background: var(--color-white);
+    border: 1px solid color-mix(in srgb, var(--accent) 30%, transparent);
+    border-radius: 999px;
+    cursor: pointer;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+    transition: all 180ms ease;
+  }
+
+  .filter-btn:hover {
+    background: color-mix(in srgb, var(--accent) 15%, var(--color-white));
+    border-color: var(--accent);
+    transform: translateY(-1px);
+  }
+
+  .filter-btn.active {
+    background: var(--cta-bg);
+    color: var(--color-white);
+    border-color: var(--cta-bg);
+    box-shadow: 0 4px 12px color-mix(in srgb, var(--cta-bg) 25%, transparent);
+  }
+
+  .filter-btn:active {
+    transform: translateY(0);
   }
 
   .notice-grid {
