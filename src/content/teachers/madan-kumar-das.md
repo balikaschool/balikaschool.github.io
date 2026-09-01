@@ -1,7 +1,7 @@
 ---
 name: Madan Kumar Das
 designation: Teacher
-photo: ../../assets/teachers/1000065111.jpg
+photo: ../../assets/teachers/3834.png
 subject: Mathematics
 phone: '9863470560'
 address: Bisnupur-3, Siraha
