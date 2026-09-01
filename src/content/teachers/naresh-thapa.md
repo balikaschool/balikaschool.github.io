@@ -1,7 +1,7 @@
 ---
 name: Naresh Thapa
 designation: Teacher
-photo: ../../assets/teachers/1000064908.png
+photo: ../../assets/teachers/1000065130.jpg
 subject: Social Studies
 phone: ''
 address: ''
