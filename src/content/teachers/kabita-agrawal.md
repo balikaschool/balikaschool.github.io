@@ -1,7 +1,7 @@
 ---
 name: Kabita Agrawal
 designation: Teacher
-photo: ../../assets/teachers/Kabita Agrawal_restored.jpeg
+photo: ../../assets/teachers/1000065122.jpg
 subject: English
 phone: '9862806913'
 address: Dharan-16
