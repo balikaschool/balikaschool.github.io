@@ -1,7 +1,7 @@
 ---
 name: Aasha Kumari Sah
 designation: Teacher
-photo: ../../assets/teachers/1000065097.jpg
+photo: ../../assets/teachers/3831.png
 subject: Primary
 phone: ''
 address: ''
