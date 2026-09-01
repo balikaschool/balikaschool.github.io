@@ -1,7 +1,7 @@
 ---
 name: Arjun Adhikari
 designation: Teacher
-photo: ../../assets/teachers/Arjun Adhikari.jpeg
+photo: ../../assets/teachers/1000065131.jpg
 subject: Primary
 phone: '9842545697'
 address: Itahari-19
