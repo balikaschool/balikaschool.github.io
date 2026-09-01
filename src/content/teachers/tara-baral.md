@@ -1,7 +1,7 @@
 ---
 name: Tara Baral
 designation: Teacher
-photo: ../../assets/teachers/Tara Mam_restored.jpeg
+photo: ../../assets/teachers/1000065115.jpg
 subject: Nepali
 phone: '9842165876'
 address: Dharan-16
