@@ -1,10 +1,10 @@
 ---
 name: Goma Adhikari
 designation: Teacher
-photo: ../../assets/teachers/1000064907.png
+photo: ../../assets/teachers/1000065145.jpg
 subject: Nepali
 phone: ''
-address: ''
+address: Dharan 16
 dob: ''
 bloodGroup: ''
 arrived: ''
