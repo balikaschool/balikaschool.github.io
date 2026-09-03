@@ -1,5 +1,7 @@
+import siteSettings from '../content/settings/site.json';
+
 /**
- * Centralized i18n Dictionary for Shree Sharada Balika Namuna Secondary School
+ * Centralized i18n Dictionary for school website
  * Contains full English and Nepali translations for all static UI elements.
  */
 
@@ -14,10 +16,10 @@ export const translations = {
     'nav.langToggle': 'नेपाली',
 
     // Site Identity
-    'site.name': 'Shree Sharada Balika Namuna Secondary School',
-    'site.headerName': '<span class="brand-name">Shree Sharada Balika Namuna</span><span class="brand-sub">Secondary School</span>',
-    'site.nepaliName': 'Shree Sharada Balika Namuna Secondary School',
-    'site.location': 'Dharan-16, Sunsari, Nepal',
+    'site.name': siteSettings.name_en,
+    'site.headerName': `<span class="brand-name">${siteSettings.header_main_en || 'Shree Sharada Balika Namuna'}</span><span class="brand-sub">${siteSettings.header_sub_en || 'Secondary School'}</span>`,
+    'site.nepaliName': siteSettings.name_en,
+    'site.location': siteSettings.location_en,
 
     // Hero Section
     'hero.badge': 'Model All-Girls Institution · Dharan-16, Sunsari',
@@ -48,13 +50,14 @@ export const translations = {
     'notices.seeAll': 'See all notices →',
     'notices.empty': 'No active notices at the moment. Please check back later.',
     'notices.title': 'Notices & Announcements',
-    'notices.intro': 'Official updates from Shree Sharada Balika Namuna Secondary School — SEE & +2 exam routines, admission notices, holiday schedules, and student events in Dharan.',
+    'notices.intro': 'Official updates from Shree Sharada Balika Namuna Secondary School — SEE & +2 exam routines, admission notices, holiday schedules, student talent & creations, and school events in Dharan.',
 
     'cat.holiday': 'Holiday',
     'cat.admission': 'Admission',
     'cat.examination': 'Examination',
     'cat.event': 'Event',
     'cat.general': 'General',
+    'cat.talent': 'Talent',
     'cat.pinned': '📌 Pinned',
     'cat.all': 'All',
     'notices.rss': 'RSS Feed',
@@ -110,7 +113,7 @@ export const translations = {
 
     // Footer
     'footer.rights': 'All rights reserved.',
-    'footer.tagline': 'Model All-Girls Secondary School · Dharan-16, Sunsari, Nepal',
+    'footer.tagline': siteSettings.tagline_en || 'Model All-Girls Secondary School · Dharan-16, Sunsari, Nepal',
     'footer.map': 'Location Map',
   },
 
@@ -124,10 +127,10 @@ export const translations = {
     'nav.langToggle': 'English',
 
     // Site Identity
-    'site.name': 'श्री शारदा बालिका नमुना माध्यमिक विद्यालय',
-    'site.headerName': '<span class="brand-name">श्री शारदा बालिका नमुना</span><span class="brand-sub">माध्यमिक विद्यालय</span>',
-    'site.nepaliName': 'श्री शारदा बालिका नमुना माध्यमिक विद्यालय',
-    'site.location': 'धरान-१६, सुनसरी, नेपाल',
+    'site.name': siteSettings.name_ne,
+    'site.headerName': `<span class="brand-name">${siteSettings.header_main_ne || 'श्री शारदा बालिका नमुना'}</span><span class="brand-sub">${siteSettings.header_sub_ne || 'माध्यमिक विद्यालय'}</span>`,
+    'site.nepaliName': siteSettings.name_ne,
+    'site.location': siteSettings.location_ne,
 
     // Hero Section
     'hero.badge': 'नमुना बालिका माध्यमिक विद्यालय · धरान-१६, सुनसरी',
@@ -158,13 +161,14 @@ export const translations = {
     'notices.seeAll': 'सबै सूचनाहरू हेर्नुहोस् →',
     'notices.empty': 'हाल कुनै नयाँ सूचना छैन। कृपया पछि पुनः हेर्नुहोस्।',
     'notices.title': 'सूचना तथा समाचारहरू',
-    'notices.intro': 'श्री शारदा बालिका नमुना माध्यमिक विद्यालयका आधिकारिक सूचनाहरू — एस.ई.ई. र १०+२ परीक्षा तालिका, भर्ना सूचना तथा विद्यालयका गतिविधिहरू।',
+    'notices.intro': 'श्री शारदा बालिका नमुना माध्यमिक विद्यालयका आधिकारिक सूचनाहरू — एस.ई.ई. र १०+२ परीक्षा तालिका, भर्ना सूचना, विद्यार्थी प्रतिभा तथा सिर्जना र विद्यालयका गतिविधिहरू।',
 
     'cat.holiday': 'बिदा',
     'cat.admission': 'भर्ना',
     'cat.examination': 'परीक्षा',
     'cat.event': 'कार्यक्रम',
     'cat.general': 'साधारण',
+    'cat.talent': 'प्रतिभा',
     'cat.pinned': '📌 प्रमुख',
     'cat.all': 'सबै',
     'notices.rss': 'RSS फिड',
@@ -220,7 +224,7 @@ export const translations = {
 
     // Footer
     'footer.rights': 'सर्वाधिकार सुरक्षित।',
-    'footer.tagline': 'नमुना बालिका माध्यमिक विद्यालय · धरान-१६, सुनसरी, नेपाल',
+    'footer.tagline': siteSettings.tagline_ne || 'नमुना बालिका माध्यमिक विद्यालय · धरान-१६, सुनसरी, नेपाल',
     'footer.map': 'स्थान नक्शा',
   },
 } as const;

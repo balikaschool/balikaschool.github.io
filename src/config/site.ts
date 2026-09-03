@@ -7,11 +7,28 @@ import homepageSettings from '../content/settings/homepage.json';
 export const site = {
   name: siteSettings.name_en,
   nepaliName: siteSettings.name_ne,
+  headerMainNe: siteSettings.header_main_ne || 'श्री शारदा बालिका नमुना',
+  headerSubNe: siteSettings.header_sub_ne || 'माध्यमिक विद्यालय',
+  headerMainEn: siteSettings.header_main_en || 'Shree Sharada Balika Namuna',
+  headerSubEn: siteSettings.header_sub_en || 'Secondary School',
+  taglineNe: siteSettings.tagline_ne || 'नमुना बालिका माध्यमिक विद्यालय · धरान-१६, सुनसरी, नेपाल',
+  taglineEn: siteSettings.tagline_en || 'Model All-Girls Secondary School · Dharan-16, Sunsari, Nepal',
+  logo: siteSettings.logo,
+  stampLogo: siteSettings.stampLogo,
+  theme: siteSettings.theme || {
+    bg: '#FAF7F2',
+    dark: '#1E2E2D',
+    primary: '#00706E',
+    secondary: '#A23B24',
+    accent: '#00A3A0',
+  },
   location: siteSettings.location_en,
   locationNe: siteSettings.location_ne,
   email: siteSettings.email,
   phones: siteSettings.phones,
   estYear: siteSettings.estYear,
+  mapEmbed: siteSettings.mapEmbed || '',
+  mapUrl: siteSettings.mapUrl || '',
 
   description:
     "Shree Sharada Balika Namuna Secondary School (श्री शारदा बालिका नमुना माध्यमिक विद्यालय) was established in 1948 AD (2005 BS) in Dharan-16, Sunsari, Nepal. An premier all-girls community-based institution affiliated with the National Examination Board (NEB) offering ECD to Grade 10 and Ten Plus Two (+2) in Management and Education.",
@@ -28,11 +45,8 @@ export const site = {
 
   youtubeStoryVideoId: homepageSettings.youtubeStoryVideoId || '20NugF8viUM',
 
-  social: {
-    facebook: siteSettings.facebook,
-    map: siteSettings.map,
-    youtube: siteSettings.youtube,
-  },
+  /** Flexible social media links — any platform, any number. Each entry: { platform, url } */
+  socials: (siteSettings.socials ?? []) as Array<{ platform: string; url: string }>,
 
   facilities: [
     'Science Lab',

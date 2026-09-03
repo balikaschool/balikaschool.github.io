@@ -19,7 +19,7 @@ const notices = defineCollection({
   schema: ({ image }) =>
     z.object({
       title: z.preprocess(toOptionalString, z.string()),
-      category: z.enum(['Admission', 'Examination', 'Holiday', 'Event', 'General']),
+      category: z.enum(['Admission', 'Examination', 'Holiday', 'Event', 'General', 'Talent']),
       date: z.coerce.date(),
       photo: z.preprocess(blank, image().optional()),
       gallery: z.preprocess(blank, z.array(image()).optional()),

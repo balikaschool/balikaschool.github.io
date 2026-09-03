@@ -1,15 +1,35 @@
 {
   "name_ne": "श्री शारदा बालिका नमुना माध्यमिक विद्यालय",
   "name_en": "Shree Sharada Balika Namuna Secondary School",
-  "location_ne": "धरान-१६, सुनसरी, नेपाल",
-  "location_en": "Dharan-16, Sunsari, Nepal",
+  "header_main_ne": "श्री शारदा बालिका नमुना",
+  "header_sub_ne": "माध्यमिक विद्यालय",
+  "header_main_en": "Shree Sharada Balika Namuna",
+  "header_sub_en": "Secondary School",
+  "tagline_ne": "नमुना बालिका माध्यमिक विद्यालय · धरान-१६, सुनसरी, नेपाल",
+  "tagline_en": "Model All-Girls Secondary School · Dharan-16, Sunsari, Nepal",
+  "logo": "/src/assets/logo/balika.png",
+  "stampLogo": "/src/assets/logo/balika-stamp.png",
   "email": "balikaschool2005@gmail.com",
   "phones": [
     "025-520962",
     "9842054429"
   ],
+  "location_ne": "धरान-१६, सुनसरी, नेपाल",
+  "location_en": "Dharan-16, Sunsari, Nepal",
   "estYear": "1948 AD (2005 BS)",
-  "facebook": "https://www.facebook.com/people/Shree-Sharada-Balika-Namuna-Secondary-School/100084429066857/",
-  "map": "https://maps.app.goo.gl/vjXjs3914iKBhmpg8",
-  "youtube": "https://www.youtube.com/@balikaschool"
+  "mapEmbed": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3560.456457783115!2d87.28046137659857!3d26.825430476699303!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39ef417315007681%3A0xe5c15dc53664a2c7!2z4KS24KS-4KSw4KSm4KS-IOCkrOCkvuCksuCkv-CkleCkviDgpKjgpK7gpYHgpKjgpL4g4KSJ4KSa4KWN4KSaIOCkruCkvi4g4KS14KS_Lg!5e0!3m2!1sne!2snp!4v1787966007409!5m2!1sne!2snp",
+  "mapUrl": "https://maps.app.goo.gl/vjXjs3914iKBhmpg8",
+  "socials": [
+    {
+      "platform": "Facebook",
+      "url": "https://www.facebook.com/people/Shree-Sharada-Balika-Namuna-Secondary-School/100084429066857/"
+    }
+  ],
+  "theme": {
+    "bg": "#FAF7F2",
+    "dark": "#1E2E2D",
+    "primary": "#00706E",
+    "secondary": "#A23B24",
+    "accent": "#00A3A0"
+  }
 }

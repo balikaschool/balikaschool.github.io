@@ -50,6 +50,21 @@ const ogImageAbs = Astro.site
     <meta name="twitter:image" content={ogImageAbs} />
 
     <ClientRouter />
+    <style is:inline define:vars={{
+      themeBg: site.theme?.bg || '#FAF7F2',
+      themeDark: site.theme?.dark || '#1E2E2D',
+      themePrimary: site.theme?.primary || '#00706E',
+      themeSecondary: site.theme?.secondary || '#A23B24',
+      themeAccent: site.theme?.accent || '#00A3A0',
+    }}>
+      :root {
+        --color-cream: var(--themeBg);
+        --color-ebony: var(--themeDark);
+        --color-coffee: var(--themePrimary);
+        --color-olive: var(--themeSecondary);
+        --color-camel: var(--themeAccent);
+      }
+    </style>
     <script is:inline set:html={i18nInitScript} />
   </head>
   <body>

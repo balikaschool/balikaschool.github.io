@@ -35,16 +35,18 @@ const { contact } = site.copy;
         <h2 data-i18n="contact.whereHeading">Where we are</h2>
         <p data-i18n="site.location">{site.location}</p>
         <div class="map-wrapper">
-          <iframe
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3560.456457783115!2d87.28046137659857!3d26.825430476699303!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39ef417315007681%3A0xe5c15dc53664a2c7!2z4KS24KS-4KSw4KSm4KS-IOCkrOCkvuCksuCkv-CkleCkviDgpKjgpK7gpYHgpKjgpL4g4KSJ4KSa4KWN4KSaIOCkruCkvi4g4KS14KS_Lg!5e0!3m2!1sne!2snp!4v1787966007409!5m2!1sne!2snp"
-            width="100%"
-            height="260"
-            style="border:0;"
-            allowfullscreen
-            loading="lazy"
-            referrerpolicy="strict-origin-when-cross-origin"
-            title="School Location Map"
-          ></iframe>
+          {site.mapEmbed && (
+            <iframe
+              src={site.mapEmbed}
+              width="100%"
+              height="260"
+              style="border:0;"
+              allowfullscreen
+              loading="lazy"
+              referrerpolicy="strict-origin-when-cross-origin"
+              title="School Location Map"
+            ></iframe>
+          )}
         </div>
         <h2 data-i18n="contact.emailHeading">Email</h2>
         <p><a href={`mailto:${site.email}`}>{site.email}</a></p>
@@ -56,8 +58,16 @@ const { contact } = site.copy;
         </ul>
         <h2 data-i18n="contact.socialHeading">Find us online</h2>
         <ul class="social-list">
-          {site.social.facebook && <li><a href={site.social.facebook}>Facebook</a></li>}
-          {site.social.youtube && <li><a href={site.social.youtube}>YouTube</a></li>}
+          {site.socials.map(({ platform, url }) => (
+            <li>
+              <a href={url} target="_blank" rel="noopener noreferrer">{platform}</a>
+            </li>
+          ))}
+          {site.mapUrl && (
+            <li>
+              <a href={site.mapUrl} target="_blank" rel="noopener noreferrer" data-i18n="footer.map">Location Map</a>
+            </li>
+          )}
         </ul>
       </aside>
     </div>

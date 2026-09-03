@@ -30,7 +30,7 @@ collections:
           name: category,
           label: "Category",
           widget: select,
-          options: ["Admission", "Examination", "Holiday", "Event", "General"],
+          options: ["Admission", "Examination", "Holiday", "Event", "General", "Talent"],
         }
       - { name: date, label: "Date", widget: datetime }
       - { name: photo, label: "Main photo", widget: image, required: false }
@@ -270,14 +270,49 @@ collections:
         fields:
           - { name: name_ne, label: "School Name (Nepali)", widget: string }
           - { name: name_en, label: "School Name (English)", widget: string }
+          - { name: header_main_ne, label: "Header Main Name (Nepali)", widget: string, hint: "e.g. श्री शारदा बालिका नमुना" }
+          - { name: header_sub_ne, label: "Header Sub Name (Nepali)", widget: string, hint: "e.g. माध्यमिक विद्यालय" }
+          - { name: header_main_en, label: "Header Main Name (English)", widget: string, hint: "e.g. Shree Sharada Balika Namuna" }
+          - { name: header_sub_en, label: "Header Sub Name (English)", widget: string, hint: "e.g. Secondary School" }
+          - { name: tagline_ne, label: "Tagline (Nepali)", widget: string, required: false }
+          - { name: tagline_en, label: "Tagline (English)", widget: string, required: false }
+          - { name: logo, label: "School Logo", widget: image, required: false, hint: "Main navbar logo" }
+          - { name: stampLogo, label: "Stamp Logo", widget: image, required: false, hint: "Footer stamp logo" }
           - { name: email, label: "Email Address", widget: string, hint: "Primary email shown on site" }
           - { name: phones, label: "Phone Numbers", widget: list, field: { name: phone, label: "Phone Number", widget: string } }
           - { name: location_ne, label: "Location (Nepali)", widget: string }
           - { name: location_en, label: "Location (English)", widget: string }
           - { name: estYear, label: "Established Year", widget: string }
-          - { name: facebook, label: "Facebook Page URL", widget: string, required: false }
-          - { name: youtube, label: "YouTube URL", widget: string, required: false }
-          - { name: map, label: "Google Maps URL", widget: string, required: false }
+          - name: mapEmbed
+            label: "Map Embed URL"
+            widget: string
+            required: false
+            hint: "Get this from Google Maps → Share → Embed a map → copy only the src=\"...\" URL (starts with https://www.google.com/maps/embed?pb=...)"
+          - name: mapUrl
+            label: "Map Share Link"
+            widget: string
+            required: false
+            hint: "Short share link shown as 'Location Map' in footer & contact page (e.g. https://maps.app.goo.gl/...)"
+          - name: socials
+            label: "Social Media Links"
+            label_singular: "Social Link"
+            widget: list
+            hint: "Add any social media or link. Choose the platform and paste the URL."
+            fields:
+              - name: platform
+                label: "Platform"
+                widget: string
+                hint: "e.g. Facebook, Instagram, YouTube, WhatsApp, Map…"
+              - { name: url, label: "URL", widget: string, hint: "Full link including https://" }
+          - name: theme
+            label: "Color Theme (Hex Code)"
+            widget: object
+            fields:
+              - { name: bg, label: "Page Background Color", widget: string, default: "#FAF7F2", hint: "e.g. #FAF7F2" }
+              - { name: dark, label: "Dark / Text Color", widget: string, default: "#1E2E2D", hint: "e.g. #1E2E2D" }
+              - { name: primary, label: "Primary Button / CTA Color", widget: string, default: "#00706E", hint: "e.g. #00706E" }
+              - { name: secondary, label: "Secondary Button Color", widget: string, default: "#A23B24", hint: "e.g. #A23B24" }
+              - { name: accent, label: "Accent / Badge Color", widget: string, default: "#00A3A0", hint: "e.g. #00A3A0" }
 
       - name: homepage
         label: "Homepage Content"

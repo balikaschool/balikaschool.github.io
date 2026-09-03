@@ -14,8 +14,16 @@ const year = new Date().getFullYear();
     </div>
     <div class="footer-actions">
       <ul class="footer-social">
-        {site.social.facebook && <li><a href={site.social.facebook} target="_blank" rel="noopener noreferrer">Facebook</a></li>}
-        {site.social.map && <li><a href={site.social.map} target="_blank" rel="noopener noreferrer" data-i18n="footer.map">Location Map</a></li>}
+        {site.socials.map(({ platform, url }) => (
+          <li>
+            <a href={url} target="_blank" rel="noopener noreferrer">{platform}</a>
+          </li>
+        ))}
+        {site.mapUrl && (
+          <li>
+            <a href={site.mapUrl} target="_blank" rel="noopener noreferrer" data-i18n="footer.map">Location Map</a>
+          </li>
+        )}
       </ul>
       <ul class="footer-phones">
         {site.phones.map(ph => (
