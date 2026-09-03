@@ -16,7 +16,7 @@ app_title: Balika School CMS
 
 collections:
   - name: notices
-    label: "School Notices"
+    label: "Notices"
     label_singular: "Notice"
     identifier_field: title
     folder: "src/content/notices"
@@ -155,7 +155,7 @@ collections:
         }
 
   - name: highlights
-    label: "Photo highlights"
+    label: "Highlights"
     label_singular: "Highlight"
     identifier_field: title
     folder: "src/content/highlights"
@@ -185,3 +185,123 @@ collections:
           default: 0,
           required: false,
         }
+
+  - name: about
+    label: "About"
+    label_singular: "About Section"
+    identifier_field: title_ne
+    folder: "src/content/about"
+    media_folder: "/src/assets/about"
+    public_folder: "../../assets/about"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - {
+          name: title_ne,
+          label: "Title (Nepali) *",
+          widget: string,
+          hint: "नेपाली शीर्षक",
+        }
+      - {
+          name: order,
+          label: "Display Order",
+          widget: number,
+          default: 0,
+          required: false,
+          hint: "क्रमानुसार प्रदर्शन गर्न (१, २, ३...)",
+        }
+      - {
+          name: photo,
+          label: "Section Photo",
+          widget: image,
+          required: false,
+          hint: "Optional photo for this section",
+        }
+      - {
+          name: caption_ne,
+          label: "Photo Caption (Nepali)",
+          widget: string,
+          required: false,
+          hint: "तस्बिरको क्याप्सन",
+        }
+      - {
+          name: enable_en,
+          label: "Enable English Translation",
+          widget: boolean,
+          default: false,
+          required: false,
+          hint: "Turn ON to enable English version. If OFF, Nepali will be shown even if user switches to English on website.",
+        }
+      - {
+          name: title_en,
+          label: "Title (English)",
+          widget: string,
+          required: false,
+          hint: "Optional English title",
+        }
+      - {
+          name: caption_en,
+          label: "Photo Caption (English)",
+          widget: string,
+          required: false,
+          hint: "Optional English photo caption",
+        }
+      - {
+          name: body,
+          label: "Content (Nepali) *",
+          widget: markdown,
+          hint: "नेपाली विवरण (Markdown)",
+        }
+      - {
+          name: body_en,
+          label: "Content (English)",
+          widget: markdown,
+          required: false,
+          hint: "Optional English content (Markdown)",
+        }
+
+  - name: settings
+    label: "Settings"
+    files:
+      - name: site_info
+        label: "General"
+        file: "src/content/settings/site.json"
+        format: "json"
+        fields:
+          - { name: name_ne, label: "School Name (Nepali)", widget: string }
+          - { name: name_en, label: "School Name (English)", widget: string }
+          - { name: email, label: "Email Address", widget: string, hint: "Primary email shown on site" }
+          - { name: phones, label: "Phone Numbers", widget: list, field: { name: phone, label: "Phone Number", widget: string } }
+          - { name: location_ne, label: "Location (Nepali)", widget: string }
+          - { name: location_en, label: "Location (English)", widget: string }
+          - { name: estYear, label: "Established Year", widget: string }
+          - { name: facebook, label: "Facebook Page URL", widget: string, required: false }
+          - { name: youtube, label: "YouTube URL", widget: string, required: false }
+          - { name: map, label: "Google Maps URL", widget: string, required: false }
+
+      - name: homepage
+        label: "Homepage Content"
+        file: "src/content/settings/homepage.json"
+        format: "json"
+        fields:
+          - { name: heroHeadline_ne, label: "Hero Headline (Nepali)", widget: string }
+          - { name: heroHeadline_en, label: "Hero Headline (English)", widget: string, required: false }
+          - { name: heroSub_ne, label: "Hero Subtitle (Nepali)", widget: text }
+          - { name: heroSub_en, label: "Hero Subtitle (English)", widget: text, required: false }
+          - { name: youtubeStoryVideoId, label: "YouTube Video ID", widget: string, hint: "e.g. 20NugF8viUM", required: false }
+          - { name: programsHeading_ne, label: "Programs Heading (Nepali)", widget: string, default: "उपलब्ध शैक्षिक कार्यक्रमहरू" }
+          - { name: programsHeading_en, label: "Programs Heading (English)", widget: string, default: "Academic Programs Offered", required: false }
+          - name: programs
+            label: "Academic Programs"
+            widget: list
+            fields:
+              - { name: title_ne, label: "Title (Nepali)", widget: string }
+              - { name: title_en, label: "Title (English)", widget: string, required: false }
+              - { name: level_ne, label: "Level (Nepali)", widget: string, required: false }
+              - { name: level_en, label: "Level (English)", widget: string, required: false }
+              - { name: desc_ne, label: "Description (Nepali)", widget: text }
+              - { name: desc_en, label: "Description (English)", widget: text, required: false }
+              - { name: tags_ne, label: "Tags (Nepali)", widget: string, required: false }
+              - { name: tags_en, label: "Tags (English)", widget: string, required: false }
+
+

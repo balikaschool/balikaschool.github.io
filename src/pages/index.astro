@@ -45,8 +45,26 @@ const programI18nKeys = [
   <section class="section hero">
     <div class="container hero-inner">
       <div class="hero-text">
-        <h1 data-i18n="hero.headline">{home.heroHeadline}</h1>
-        <p data-i18n="hero.sub">{home.heroSub}</p>
+        <h1>
+          {home.heroHeadlineEn ? (
+            <>
+              <span class="text-ne">{home.heroHeadlineNe}</span>
+              <span class="text-en" style="display:none;">{home.heroHeadlineEn}</span>
+            </>
+          ) : (
+            <span class="text-always">{home.heroHeadlineNe}</span>
+          )}
+        </h1>
+        <p>
+          {home.heroSubEn ? (
+            <>
+              <span class="text-ne">{home.heroSubNe}</span>
+              <span class="text-en" style="display:none;">{home.heroSubEn}</span>
+            </>
+          ) : (
+            <span class="text-always">{home.heroSubNe}</span>
+          )}
+        </p>
         <div class="cta-row">
           <a class="btn btn--primary" href="/notices" data-i18n="hero.btnNotices">View notices</a>
           <a class="btn btn--secondary" href="/contact" data-i18n="hero.btnContact">Contact us</a>
@@ -71,19 +89,53 @@ const programI18nKeys = [
   <section class="section programs-section">
     <div class="container">
       <div class="section-header">
-        <h2 data-i18n="programs.heading">Academic Programs Offered</h2>
+        <h2 class="programs-heading">
+          {home.programsHeadingEn ? (
+            <>
+              <span class="text-ne">{home.programsHeadingNe}</span>
+              <span class="text-en" style="display:none;">{home.programsHeadingEn}</span>
+            </>
+          ) : (
+            <span class="text-always">{home.programsHeadingNe}</span>
+          )}
+        </h2>
       </div>
 
       <div class="program-grid-thirds">
-        {site.courses.map((course, idx) => {
-          const keys = programI18nKeys[idx] || { titleKey: '', descKey: '', tagsKey: '' };
+        {site.courses.map((course) => {
+          const hasEn = Boolean(course.titleEn && course.descEn);
           return (
             <div class="program-box">
               <div class="program-box-body">
-                <h3 data-i18n={keys.titleKey}>{course.title}</h3>
-                <p class="program-desc" data-i18n={keys.descKey}>{course.description}</p>
-                <div class="program-tags" data-i18n={keys.tagsKey}>
-                  NEB Affiliated · Practical Labs · Scholarship
+                <h3>
+                  {hasEn ? (
+                    <>
+                      <span class="text-ne">{course.titleNe}</span>
+                      <span class="text-en" style="display:none;">{course.titleEn}</span>
+                    </>
+                  ) : (
+                    <span class="text-always">{course.titleNe}</span>
+                  )}
+                </h3>
+                <p class="program-desc">
+                  {hasEn ? (
+                    <>
+                      <span class="text-ne">{course.descNe}</span>
+                      <span class="text-en" style="display:none;">{course.descEn}</span>
+                    </>
+                  ) : (
+                    <span class="text-always">{course.descNe}</span>
+                  )}
+                </p>
+                <div class="program-tags">
+                  {course.tagsEn ? (
+                    <>
+                      <span class="text-ne">{course.tagsNe}</span>
+                      <span class="text-en" style="display:none;">{course.tagsEn}</span>
+                    </>
+                  ) : (
+                    <span class="text-always">{course.tagsNe}</span>
+                  )}
                 </div>
               </div>
             </div>
@@ -162,6 +214,24 @@ const programI18nKeys = [
     )
   }
 </BaseLayout>
+
+<script>
+  function syncHomeLanguage() {
+    const lang = localStorage.getItem('balika_lang') || 'ne';
+    document.querySelectorAll('.hero-text, .programs-section').forEach((container) => {
+      container.querySelectorAll('.text-ne').forEach((el) => {
+        (el as HTMLElement).style.display = lang === 'ne' ? '' : 'none';
+      });
+      container.querySelectorAll('.text-en').forEach((el) => {
+        (el as HTMLElement).style.display = lang === 'en' ? '' : 'none';
+      });
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', syncHomeLanguage);
+  document.addEventListener('astro:page-load', syncHomeLanguage);
+  window.addEventListener('languageChange', syncHomeLanguage);
+</script>
 
 <style>
   .badge {

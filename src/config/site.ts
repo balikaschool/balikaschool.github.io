@@ -1,14 +1,17 @@
+import siteSettings from '../content/settings/site.json';
+import homepageSettings from '../content/settings/homepage.json';
+
 /**
- * Central static-site config: ALL static copy, links, and config values
- * live here. Swapping placeholder → final means editing THIS file only.
+ * Central static-site config: loaded dynamically from CMS settings in src/content/settings/
  */
 export const site = {
-  name: "Shree Sharada Balika Namuna Secondary School",
-  nepaliName: "श्री शारदा बालिका नमुना माध्यमिक विद्यालय, सुनसरी",
-  location: 'Dharan-16, Sunsari, Nepal',
-  email: 'info@sharadabalika.edu.np',
-  phones: ['025-520962', '9842054429'],
-  estYear: '1948 AD (2005 BS)',
+  name: siteSettings.name_en,
+  nepaliName: siteSettings.name_ne,
+  location: siteSettings.location_en,
+  locationNe: siteSettings.location_ne,
+  email: siteSettings.email,
+  phones: siteSettings.phones,
+  estYear: siteSettings.estYear,
 
   description:
     "Shree Sharada Balika Namuna Secondary School (श्री शारदा बालिका नमुना माध्यमिक विद्यालय) was established in 1948 AD (2005 BS) in Dharan-16, Sunsari, Nepal. An premier all-girls community-based institution affiliated with the National Examination Board (NEB) offering ECD to Grade 10 and Ten Plus Two (+2) in Management and Education.",
@@ -23,11 +26,12 @@ export const site = {
 
   web3formsKey: import.meta.env.PUBLIC_WEB3FORMS_KEY ?? '',
 
-  youtubeStoryVideoId: '20NugF8viUM',
+  youtubeStoryVideoId: homepageSettings.youtubeStoryVideoId || '20NugF8viUM',
 
   social: {
-    facebook: 'https://www.facebook.com/people/Shree-Sharada-Balika-Namuna-Secondary-School/100084429066857/',
-    map: 'https://maps.app.goo.gl/vjXjs3914iKBhmpg8',
+    facebook: siteSettings.facebook,
+    map: siteSettings.map,
+    youtube: siteSettings.youtube,
   },
 
   facilities: [
@@ -45,32 +49,31 @@ export const site = {
     'School Journal',
   ],
 
-  courses: [
-    {
-      title: 'Ten Plus Two (+2) Management',
-      stream: 'Management',
-      level: 'Higher Secondary (+2)',
-      description: 'Prepares young women with fundamental leadership, business, accounting, and managerial skills for higher studies and careers.',
-    },
-    {
-      title: 'Ten Plus Two (+2) Education',
-      stream: 'Education',
-      level: 'Higher Secondary (+2)',
-      description: 'Fosters pedagogical expertise, child development awareness, and communication skills for future educators and academic leaders.',
-    },
-    {
-      title: 'Basic & Secondary Education (ECD – Grade 10)',
-      stream: 'General Academics',
-      level: 'Primary & Secondary',
-      description: 'Comprehensive curriculum from Early Childhood Development to SEE, focusing on empowering female students through holistic learning.',
-    },
-  ],
+  courses: homepageSettings.programs.map((p) => ({
+    title: p.title_en || p.title_ne,
+    titleNe: p.title_ne,
+    titleEn: p.title_en,
+    level: p.level_en || p.level_ne,
+    levelNe: p.level_ne,
+    levelEn: p.level_en,
+    description: p.desc_en || p.desc_ne,
+    descNe: p.desc_ne,
+    descEn: p.desc_en,
+    tags: p.tags_en || p.tags_ne,
+    tagsNe: p.tags_ne,
+    tagsEn: p.tags_en,
+  })),
 
   copy: {
     home: {
-      heroHeadline: 'Empowering Young Women Since 1948',
-      heroSub:
-        "Shree Sharada Balika Namuna Secondary School is a model all-girls community institution in Dharan-16, Sunsari. Affiliated with the NEB and approved by the Ministry of Education, we provide quality education with moderate fees and dedicated scholarships.",
+      heroHeadline: homepageSettings.heroHeadline_en || homepageSettings.heroHeadline_ne,
+      heroHeadlineNe: homepageSettings.heroHeadline_ne,
+      heroHeadlineEn: homepageSettings.heroHeadline_en,
+      heroSub: homepageSettings.heroSub_en || homepageSettings.heroSub_ne,
+      heroSubNe: homepageSettings.heroSub_ne,
+      heroSubEn: homepageSettings.heroSub_en,
+      programsHeadingNe: homepageSettings.programsHeading_ne,
+      programsHeadingEn: homepageSettings.programsHeading_en,
       featuredHeading: 'Latest announcements & notices',
       videoHeading: 'School Campus & Periphery Overview',
       highlightsHeading: 'School & Student Activities',

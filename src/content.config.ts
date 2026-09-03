@@ -71,4 +71,20 @@ const highlights = defineCollection({
     }),
 });
 
-export const collections = { notices, teachers, highlights };
+// About page composable sections
+const about = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/about' }),
+  schema: ({ image }) =>
+    z.object({
+      title_ne: z.preprocess(toOptionalString, z.string()),
+      title_en: z.preprocess(toOptionalString, z.string().optional()),
+      enable_en: z.preprocess(blank, z.boolean().default(false)),
+      order: z.preprocess(blank, z.coerce.number().default(0)),
+      photo: z.preprocess(blank, image().optional()),
+      caption_ne: z.preprocess(toOptionalString, z.string().optional()),
+      caption_en: z.preprocess(toOptionalString, z.string().optional()),
+      body_en: z.preprocess(toOptionalString, z.string().optional()),
+    }),
+});
+
+export const collections = { notices, teachers, highlights, about };

@@ -1,12 +1,14 @@
 ---
 import { Image } from 'astro:assets';
+import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { site } from '../config/site';
-import assemblyImage from '../assets/about/school-building.jpg';
-import scoutImage from '../assets/about/scout.jpg';
-import tourImage from '../assets/about/tour.jpeg';
+import { mdToHtml } from '../utils/markdown';
 
 const { about } = site.copy;
+
+const allSections = await getCollection('about');
+const sections = allSections.sort((a, b) => a.data.order - b.data.order);
 ---
 
 <BaseLayout title={about.title}>
@@ -16,56 +18,88 @@ const { about } = site.copy;
         <h1 data-i18n="about.title">{about.title}</h1>
         <p class="about-intro" data-i18n="about.intro">{about.intro}</p>
 
-        <section class="about-section">
-          <h2 data-i18n="about.legacyTitle">{about.sections[0].heading}</h2>
-          <p data-i18n="about.legacyP1">{about.sections[0].paragraphs[0]}</p>
-          <p data-i18n="about.legacyP2">{about.sections[0].paragraphs[1]}</p>
-        </section>
+        {sections.map((section) => {
+          const { title_ne, title_en, enable_en, body_en } = section.data;
+          const htmlNe = mdToHtml(section.body || '');
+          const hasEn = Boolean(enable_en && (title_en || body_en));
+          const htmlEn = hasEn ? mdToHtml(body_en || section.body || '') : '';
 
-        <section class="about-section">
-          <h2 data-i18n="about.academicTitle">{about.sections[1].heading}</h2>
-          <p data-i18n="about.academicP1">{about.sections[1].paragraphs[0]}</p>
-          <p data-i18n="about.academicP2">{about.sections[1].paragraphs[1]}</p>
-        </section>
-
-        <section class="about-section">
-          <h2 data-i18n="about.facilitiesTitle">{about.sections[2].heading}</h2>
-          <p data-i18n="about.facilitiesP1">{about.sections[2].paragraphs[0]}</p>
-          <p data-i18n="about.facilitiesP2">{about.sections[2].paragraphs[1]}</p>
-        </section>
+          return (
+            <section class="about-section">
+              <h2>
+                {hasEn && title_en ? (
+                  <>
+                    <span class="text-ne">{title_ne}</span>
+                    <span class="text-en" style="display:none;">{title_en}</span>
+                  </>
+                ) : (
+                  <span class="text-always">{title_ne}</span>
+                )}
+              </h2>
+              <div class="about-section-content">
+                {hasEn && htmlEn ? (
+                  <>
+                    <div class="body-ne" set:html={htmlNe} />
+                    <div class="body-en" style="display:none;" set:html={htmlEn} />
+                  </>
+                ) : (
+                  <div class="body-always" set:html={htmlNe} />
+                )}
+              </div>
+            </section>
+          );
+        })}
       </div>
+
       <aside class="about-media">
-        <figure>
-          <Image
-            src={assemblyImage}
-            alt="Assembly of students at Shree Sharada Balika Namuna Secondary School"
-            width={640}
-            class="about-photo"
-          />
-          <figcaption data-i18n="about.buildingCap">Assembly of students.</figcaption>
-        </figure>
-        <figure>
-          <Image
-            src={scoutImage}
-            alt="School scout troop"
-            width={640}
-            class="about-photo"
-          />
-          <figcaption data-i18n="about.scoutCap">School scout troop.</figcaption>
-        </figure>
-        <figure>
-          <Image
-            src={tourImage}
-            alt="Educational tour"
-            width={640}
-            class="about-photo"
-          />
-          <figcaption data-i18n="about.tourCap">Educational tour.</figcaption>
-        </figure>
+        {sections.filter((s) => s.data.photo).map((section) => {
+          const { photo, caption_ne, caption_en, enable_en, title_ne } = section.data;
+          const hasCapEn = Boolean(enable_en && caption_en);
+          return (
+            <figure>
+              <Image
+                src={photo!}
+                alt={caption_ne || title_ne}
+                width={640}
+                class="about-photo"
+              />
+              {(caption_ne || (hasCapEn && caption_en)) && (
+                <figcaption>
+                  {hasCapEn ? (
+                    <>
+                      <span class="caption-ne">{caption_ne}</span>
+                      <span class="caption-en" style="display:none;">{caption_en}</span>
+                    </>
+                  ) : (
+                    <span class="caption-always">{caption_ne}</span>
+                  )}
+                </figcaption>
+              )}
+            </figure>
+          );
+        })}
       </aside>
     </div>
   </section>
 </BaseLayout>
+
+<script>
+  function syncAboutLanguage() {
+    const lang = localStorage.getItem('balika_lang') || 'ne';
+    document.querySelectorAll('.about-inner').forEach((container) => {
+      container.querySelectorAll('.text-ne, .body-ne, .caption-ne').forEach((el) => {
+        (el as HTMLElement).style.display = lang === 'ne' ? '' : 'none';
+      });
+      container.querySelectorAll('.text-en, .body-en, .caption-en').forEach((el) => {
+        (el as HTMLElement).style.display = lang === 'en' ? '' : 'none';
+      });
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', syncAboutLanguage);
+  document.addEventListener('astro:page-load', syncAboutLanguage);
+  window.addEventListener('languageChange', syncAboutLanguage);
+</script>
 
 <style>
   .about-inner {
@@ -85,6 +119,27 @@ const { about } = site.copy;
 
   .about-section {
     margin-top: var(--space-5);
+  }
+
+  .about-section h2 {
+    margin-bottom: var(--space-2);
+  }
+
+  .about-section-content {
+    line-height: 1.7;
+  }
+
+  .about-section-content :global(p) {
+    margin-top: var(--space-3);
+  }
+
+  .about-section-content :global(ul) {
+    margin-top: var(--space-2);
+    padding-left: var(--space-4);
+  }
+
+  .about-section-content :global(li) {
+    margin-top: var(--space-1);
   }
 
   .about-media {

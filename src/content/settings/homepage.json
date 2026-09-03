@@ -1,0 +1,41 @@
+{
+  "heroHeadline_ne": "सन् १९४८ (वि.सं. २००५) देखि महिला सशक्तिकरणमा समर्पित",
+  "heroHeadline_en": "Empowering Young Women Since 1948",
+  "heroSub_ne": "श्री शारदा बालिका नमुना माध्यमिक विद्यालय धरान-१६, सुनसरीमा अवस्थित एक उत्कृष्ट सामुदायिक बालिका विद्यालय हो। राष्ट्रिय परीक्षा बोर्ड (NEB) सम्बन्धन प्राप्त तथा शिक्षा मन्त्रालय स्वीकृत यस विद्यालयमा गुणस्तरीय शिक्षा र छात्रवृत्तिको व्यवस्था छ।",
+  "heroSub_en": "Shree Sharada Balika Namuna Secondary School is a model all-girls community institution in Dharan-16, Sunsari. Affiliated with the NEB and approved by the Ministry of Education, we provide quality education with moderate fees and dedicated scholarships.",
+  "youtubeStoryVideoId": "20NugF8viUM",
+  "programsHeading_ne": "उपलब्ध शैक्षिक कार्यक्रमहरू",
+  "programsHeading_en": "Academic Programs Offered",
+  "programs": [
+    {
+      "title_ne": "१०+२ व्यवस्थापन",
+      "title_en": "Ten Plus Two (+2) Management",
+      "level_ne": "उच्च माध्यमिक (+२)",
+      "level_en": "Higher Secondary (+2)",
+      "desc_ne": "छात्राहरूलाई नेतृत्व, व्यवस्थापकीय दक्षता, लेखा र कम्प्युटर विज्ञान सम्बन्धी व्यावहारिक ज्ञान प्रदान गर्ने कार्यक्रम।",
+      "desc_en": "Prepares young women with fundamental leadership, accounting, computer science, and managerial skills for higher studies & careers.",
+      "tags_ne": "NEB सम्बन्धन · कम्प्युटर ल्याब · छात्रवृत्ति सुविधा",
+      "tags_en": "NEB Affiliated · Practical Labs · Scholarship"
+    },
+    {
+      "title_ne": "१०+२ शिक्षा",
+      "title_en": "Ten Plus Two (+2) Education",
+      "level_ne": "उच्च माध्यमिक (+२)",
+      "level_en": "Higher Secondary (+2)",
+      "desc_ne": "भविष्यका उत्कृष्ट शिक्षक तथा शैक्षिक नेतृत्व निर्माणका लागि शिक्षण विधि, समाजशास्त्र र बाल मनोविज्ञानमा आधारित शिक्षा।",
+      "desc_en": "Fosters pedagogical expertise, child psychology, social studies, and communication skills for future academic leaders.",
+      "tags_ne": "प्रयोगात्मक शिक्षण · बाल मनोविज्ञान · दक्ष प्राध्यापक",
+      "tags_en": "Teaching Practice · Child Psychology · Expert Faculty"
+    },
+    {
+      "title_ne": "आधारभूत तथा माध्यमिक शिक्षा (ECD – कक्षा १०)",
+      "title_en": "Basic & Secondary Education (ECD – Grade 10)",
+      "level_ne": "प्राथमिक तथा माध्यमिक",
+      "level_en": "Primary & Secondary",
+      "desc_ne": "प्रारम्भिक बाल विकास (ECD) देखि एस.इ.इ. (SEE) सम्मको उत्कृष्ट, व्यावहारिक र बहुआयामिक माध्यमिक शिक्षा।",
+      "desc_en": "Comprehensive, nurturing education from Early Childhood Development (ECD) up to Grade 10 (SEE) with modern science labs & ECA.",
+      "tags_ne": "ECD देखि १० सम्म · विज्ञान प्रयोगशाला · अतिरिक्त क्रियाकलाप",
+      "tags_en": "ECD to Class 10 · Science & Multimedia Lab · Holistic ECA"
+    }
+  ]
+}

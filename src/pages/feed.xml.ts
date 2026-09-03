@@ -1,33 +1,5 @@
 import { getCollection } from 'astro:content';
-
-function mdToHtml(md: string): string {
-  if (!md) return '';
-  // Convert headers
-  let html = md.replace(/^### (.*$)/gim, '<h3>$1</h3>');
-  html = html.replace(/^## (.*$)/gim, '<h2>$1</h2>');
-  html = html.replace(/^# (.*$)/gim, '<h1>$1</h1>');
-  
-  // Convert bold and italics
-  html = html.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
-  html = html.replace(/\*(.*?)\*/g, '<em>$1</em>');
-  
-  // Convert lists
-  html = html.replace(/^\s*-\s+(.*)$/gim, '<li>$1</li>');
-  html = html.replace(/(<li>.*<\/li>)+/gs, (match) => `<ul>${match}</ul>`);
-  
-  // Convert paragraphs (split by double newlines)
-  const paragraphs = html.split(/\n{2,}/);
-  html = paragraphs.map(p => {
-    p = p.trim();
-    if (!p) return '';
-    if (p.startsWith('<h') || p.startsWith('<ul') || p.startsWith('<li>')) {
-      return p;
-    }
-    return `<p>${p.replace(/\n/g, '<br />')}</p>`;
-  }).join('\n');
-  
-  return html;
-}
+import { mdToHtml } from '../utils/markdown';
 
 export async function GET(context: any) {
   const notices = await getCollection('notices');
