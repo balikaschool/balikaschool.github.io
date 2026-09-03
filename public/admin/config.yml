@@ -3,13 +3,13 @@ backend:
   repo: balikaschool/balikaschool.github.io
   branch: main
   auth_methods: [token]
-  base_url: https://balikaschool.github.io
+  base_url: https://sharadabalika.edu.np
 
 media_folder: "src/assets/uploads"
 public_folder: "/src/assets/uploads"
 
 logo:
-  src: https://balikaschool.github.io/admin/balika.png
+  src: https://sharadabalika.edu.np/admin/balika.png
   show_in_header: true
 
 app_title: Balika School CMS
