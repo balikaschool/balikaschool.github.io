@@ -50,7 +50,7 @@ export const translations = {
     'notices.seeAll': 'See all notices →',
     'notices.empty': 'No active notices at the moment. Please check back later.',
     'notices.title': 'Notices & Announcements',
-    'notices.intro': 'Official updates from Shree Sharada Balika Namuna Secondary School — SEE & +2 exam routines, admission notices, holiday schedules, student talent & creations, and school events in Dharan.',
+    'notices.intro': 'Official announcements, examination routines, admission updates, student talent & creations, and school events.',
 
     'cat.holiday': 'Holiday',
     'cat.admission': 'Admission',
@@ -92,7 +92,7 @@ export const translations = {
     // Teachers / Faculty Page
     'faculty.title': 'Faculty & Administration',
     'faculty.intro':
-      'Meet our experienced educators and leadership team in Dharan, Sunsari, who guide our students with dedication and care.',
+      'Meet our experienced educators and leadership team who guide our students with dedication and care.',
     'faculty.memorialHeading': 'Former Teachers & Staff',
     'faculty.memorialBlurb':
       'Honoring our former teachers, leadership, and staff members who contributed to the school\'s legacy.',
@@ -100,7 +100,7 @@ export const translations = {
     // Contact Page
     'contact.title': 'Contact Us',
     'contact.intro':
-      'Have questions about admissions for +2 Management, +2 Education, or school enrollment? Reach out to our administrative office in Dharan-16, Sunsari.',
+      'Have questions about admissions or school programs? Reach out to our administrative office.',
     'contact.formHeading': 'Send a message to administration',
     'contact.nameLabel': 'Your name *',
     'contact.emailLabel': 'Your email *',
@@ -161,7 +161,7 @@ export const translations = {
     'notices.seeAll': 'सबै सूचनाहरू हेर्नुहोस् →',
     'notices.empty': 'हाल कुनै नयाँ सूचना छैन। कृपया पछि पुनः हेर्नुहोस्।',
     'notices.title': 'सूचना तथा समाचारहरू',
-    'notices.intro': 'श्री शारदा बालिका नमुना माध्यमिक विद्यालयका आधिकारिक सूचनाहरू — एस.ई.ई. र १०+२ परीक्षा तालिका, भर्ना सूचना, विद्यार्थी प्रतिभा तथा सिर्जना र विद्यालयका गतिविधिहरू।',
+    'notices.intro': 'आधिकारिक सूचनाहरू — परीक्षा तालिका, भर्ना विवरण, विद्यार्थी प्रतिभा तथा सिर्जना र विद्यालयका गतिविधिहरू।',
 
     'cat.holiday': 'बिदा',
     'cat.admission': 'भर्ना',
@@ -203,7 +203,7 @@ export const translations = {
     // Teachers / Faculty Page
     'faculty.title': 'शिक्षक तथा प्रशासनिक टोली',
     'faculty.intro':
-      'धरान, सुनसरीमा अवस्थित हाम्रा अनुभवी, समर्पित शिक्षक तथा प्रशासकहरूसँग परिचय गर्नुहोस्।',
+      'हाम्रा अनुभवी, समर्पित शिक्षक तथा प्रशासकहरूसँग परिचय गर्नुहोस्।',
     'faculty.memorialHeading': 'पूर्व शिक्षक तथा कर्मचारी वर्ग',
     'faculty.memorialBlurb':
       'विद्यालयको स्थापना, विकास र मार्गदर्शनमा अमूल्य योगदान पुर्याउनुहुने पूर्व संस्थापक, शिक्षक तथा कर्मचारीहरूप्रति उच्च सम्मान।',
@@ -211,7 +211,7 @@ export const translations = {
     // Contact Page
     'contact.title': 'सम्पर्क गर्नुहोस्',
     'contact.intro':
-      '१०+२ व्यवस्थापन, शिक्षा संकाय वा विद्यालय भर्ना सम्बन्धी कुनै जिज्ञासा भएमा धरान-१६ स्थित हाम्रो प्रशासनिक शाखामा सम्पर्क गर्नुहोस्।',
+      'भर्ना प्रक्रिया वा विद्यालय सम्बन्धी कुनै जिज्ञासा भएमा हाम्रो प्रशासनिक शाखामा सम्पर्क गर्नुहोस्।',
     'contact.formHeading': 'प्रशासन शाखालाई सन्देश पठाउनुहोस्',
     'contact.nameLabel': 'तपाईंको नाम *',
     'contact.emailLabel': 'तपाईंको इमेल *',

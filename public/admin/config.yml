@@ -12,77 +12,91 @@ logo:
   src: https://sharadabalika.edu.np/admin/balika.png
   show_in_header: true
 
-app_title: Balika School CMS
+app_title: School Portal CMS
 
 collections:
+  # ============================================================================
+  # 1. NOTICES & ANNOUNCEMENTS
+  # ============================================================================
   - name: notices
     label: "Notices"
     label_singular: "Notice"
+    description: "Manage school notices, exam routines, admission calls, holiday circulars, and student talent showcases."
     identifier_field: title
     folder: "src/content/notices"
     media_folder: "/src/assets/notices"
     public_folder: "../../assets/notices"
     create: true
-    slug: "{{slug}}"
+    slug: "{{year}}-{{month}}-{{day}}-{{fields.category}}-{{hour}}{{minute}}"
     fields:
-      - { name: title, label: "Title", widget: string }
-      - {
-          name: category,
-          label: "Category",
-          widget: select,
-          options: ["Admission", "Examination", "Holiday", "Event", "General", "Talent"],
-        }
-      - { name: date, label: "Date", widget: datetime }
-      - { name: photo, label: "Main photo", widget: image, required: false }
-      - {
-          name: gallery,
-          label: "More photos",
-          widget: list,
-          required: false,
-          field: { name: image, label: "Photo", widget: image },
-        }
-      - {
-          name: featured,
-          label: "Feature on homepage",
-          widget: boolean,
-          default: false,
-          required: false,
-        }
-      - {
-          name: pinned,
-          label: "Pin Notice",
-          widget: boolean,
-          default: false,
-          required: false,
-        }
-      - {
-          name: body,
-          label: "Notice Content",
-          widget: markdown,
-          required: false,
-        }
+      - name: title
+        label: "Notice Title *"
+        widget: string
+        hint: "The main headline of the notice (shown in lists, RSS feed, and notice page)"
+
+      - name: category
+        label: "Category *"
+        widget: select
+        options: ["Admission", "Examination", "Holiday", "Event", "General", "Talent"]
+        hint: "Select category for filter buttons on /notices page (e.g. 'Talent' for student poems, art & achievements)"
+
+      - name: date
+        label: "Publish Date *"
+        widget: datetime
+        hint: "Notice publication date (automatically converted to Bikram Sambat B.S. & A.D. on the website)"
+
+      - name: photo
+        label: "Featured Photo / Notice Banner"
+        widget: image
+        required: false
+        hint: "Optional cover image or scanned notice document shown at the top"
+
+      - name: gallery
+        label: "Photo Gallery"
+        widget: list
+        required: false
+        hint: "Add multiple photos to display an interactive image gallery inside the notice"
+        field: { name: image, label: "Gallery Photo", widget: image }
+
+      - name: pinned
+        label: "Pin Notice to Top of Notices Page"
+        widget: boolean
+        default: false
+        required: false
+        hint: "Turn ON to display a 'Featured Notice / मुख्य सूचना' badge and pin this notice at the very top of the /notices page"
+
+      - name: body
+        label: "Notice Content (Markdown)"
+        widget: markdown
+        required: false
+        hint: "Write the full notice details with formatted text, lists, tables, and links"
+
       - name: attachments
-        label: "Attachments"
+        label: "Downloadable File Attachments"
         label_singular: "Attachment"
         widget: list
         required: false
-        hint: "Upload files (PDF, Word, ZIP, etc.) that visitors can download"
+        hint: "Upload result sheets, PDF routines, admission forms, or ZIP archives for visitors to download"
         fields:
           - name: label
-            label: "Display label"
+            label: "Display Label"
             widget: string
             required: false
-            hint: "Readable name shown on the page, e.g. Result Sheet PDF"
+            hint: "Readable button name shown on page (e.g. 'Class 10 Routine PDF', 'Admission Form Doc')"
           - name: file
-            label: "File"
+            label: "File Upload"
             widget: file
             media_folder: "/public/uploads"
             public_folder: "/uploads"
-            hint: "Upload any file type: PDF, DOCX, XLSX, ZIP, etc."
+            hint: "Upload any file type (PDF, DOCX, XLSX, ZIP, image, etc.)"
 
+  # ============================================================================
+  # 2. TEACHERS & FACULTY
+  # ============================================================================
   - name: teachers
     label: "Teachers"
     label_singular: "Teacher"
+    description: "Manage teaching faculty, administration staff, principal, founders, and retired/memorial educators."
     identifier_field: name
     folder: "src/content/teachers"
     media_folder: "/src/assets/teachers"
@@ -90,253 +104,489 @@ collections:
     create: true
     slug: "{{slug}}"
     fields:
-      - { name: name, label: "Name", widget: string }
-      - {
-          name: designation,
-          label: "Designation",
-          widget: string,
-          hint: "e.g. Principal, Mathematics Teacher",
-        }
-      - { name: photo, label: "Photo", widget: image }
-      - {
-          name: subject,
-          label: "Subject taught",
-          widget: string,
-          required: false,
-        }
-      - {
-          name: phone,
-          label: "Phone Number",
-          widget: string,
-          required: false,
-          hint: "Optional contact number",
-        }
-      - {
-          name: address,
-          label: "Address",
-          widget: string,
-          required: false,
-          hint: "Optional address / location",
-        }
-      - {
-          name: dob,
-          label: "Date of Birth",
-          widget: string,
-          required: false,
-          hint: "Optional date of birth (e.g. YYYY-MM-DD)",
-        }
-      - {
-          name: bloodGroup,
-          label: "Blood Group",
-          widget: string,
-          required: false,
-          hint: "Optional blood group (e.g. A+, B+, O+)",
-        }
-      - {
-          name: arrived,
-          label: "Joined Date",
-          widget: datetime,
-          required: false,
-        }
-      - {
-          name: memorial,
-          label: "In Memoriam / Retired",
-          widget: boolean,
-          default: false,
-          required: false,
-          hint: "For past/late teachers and founders",
-        }
-      - {
-          name: order,
-          label: "Order of display",
-          widget: number,
-          default: 0,
-          required: false,
-        }
+      - name: name
+        label: "Full Name *"
+        widget: string
+        hint: "Teacher or staff member's full name (e.g. 'सरस्वती श्रेष्ठ', 'Ramesh Dahal')"
 
+      - name: designation
+        label: "Designation / Role *"
+        widget: string
+        hint: "Role in school (e.g. 'Principal', 'Senior Mathematics Teacher', 'Accountant', 'Founder')"
+
+      - name: photo
+        label: "Profile Photo *"
+        widget: image
+        hint: "Passport-style or professional portrait photo"
+
+      - name: subject
+        label: "Subject Taught"
+        widget: string
+        required: false
+        hint: "Optional academic subject (e.g. 'Science', 'English', 'Accountancy')"
+
+      - name: phone
+        label: "Phone Number"
+        widget: string
+        required: false
+        hint: "Optional direct or department contact number"
+
+      - name: address
+        label: "Address / Location"
+        widget: string
+        required: false
+        hint: "Optional address / municipality (e.g. 'Dharan-16')"
+
+      - name: dob
+        label: "Date of Birth"
+        widget: string
+        required: false
+        hint: "Optional date of birth (e.g. YYYY-MM-DD)"
+
+      - name: bloodGroup
+        label: "Blood Group"
+        widget: string
+        required: false
+        hint: "Optional blood group for emergency info (e.g. A+, B+, O+, AB+)"
+
+      - name: arrived
+        label: "Joined / Appointment Date"
+        widget: datetime
+        required: false
+        hint: "Optional date when the teacher joined the school"
+
+      - name: memorial
+        label: "Former / In Memoriam / Retired"
+        widget: boolean
+        default: false
+        required: false
+        hint: "Turn ON for former/retired teachers and late founders — moves them to the 'Former Teachers & Staff' tribute section"
+
+      - name: order
+        label: "Display Order"
+        widget: number
+        default: 0
+        required: false
+        hint: "Sorting order on the Faculty page (1 = first, 2 = second, etc.)"
+
+  # ============================================================================
+  # 3. PHOTO HIGHLIGHTS (MARQUEE RIBBON)
+  # ============================================================================
   - name: highlights
     label: "Highlights"
     label_singular: "Highlight"
+    description: "Upload photos with captions for the continuous auto-scrolling photo ribbon on the homepage."
     identifier_field: title
     folder: "src/content/highlights"
     media_folder: "/src/assets/highlights"
     public_folder: "../../assets/highlights"
     create: true
-    slug: "{{slug}}"
+    slug: "{{year}}-{{month}}-{{day}}-{{fields.order}}"
     fields:
-      - {
-          name: title,
-          label: "Caption",
-          widget: string,
-          hint: "A few words — also read aloud by screen readers",
-        }
-      - { name: photo, label: "Photo", widget: image }
-      - {
-          name: link,
-          label: "Post link",
-          widget: string,
-          required: false,
-          hint: "Optional external/social link for this highlight",
-        }
-      - {
-          name: order,
-          label: "Order",
-          widget: number,
-          default: 0,
-          required: false,
-        }
+      - name: title
+        label: "Photo Caption *"
+        widget: string
+        hint: "Short caption describing the event/activity (also read aloud by screen readers)"
 
+      - name: photo
+        label: "Highlight Photo *"
+        widget: image
+        hint: "High quality photo of school life, sports, festivals, labs, or cultural programs"
+
+      - name: link
+        label: "Optional Post Link"
+        widget: string
+        required: false
+        hint: "Optional external social media post link or related notice URL"
+
+      - name: order
+        label: "Display Order"
+        widget: number
+        default: 0
+        required: false
+        hint: "Order in the scrolling ribbon (1, 2, 3...)"
+
+  # ============================================================================
+  # 4. ABOUT SECTIONS (COMPOSABLE SUBSECTIONS)
+  # ============================================================================
   - name: about
     label: "About"
     label_singular: "About Section"
+    description: "Create and compose sections on the /about page (History, Infrastructure, Affiliations, Facilities, etc.)."
     identifier_field: title_ne
     folder: "src/content/about"
     media_folder: "/src/assets/about"
     public_folder: "../../assets/about"
     create: true
-    slug: "{{slug}}"
+    slug: "{{fields.order}}-section"
     fields:
-      - {
-          name: title_ne,
-          label: "Title (Nepali) *",
-          widget: string,
-          hint: "नेपाली शीर्षक",
-        }
-      - {
-          name: order,
-          label: "Display Order",
-          widget: number,
-          default: 0,
-          required: false,
-          hint: "क्रमानुसार प्रदर्शन गर्न (१, २, ३...)",
-        }
-      - {
-          name: photo,
-          label: "Section Photo",
-          widget: image,
-          required: false,
-          hint: "Optional photo for this section",
-        }
-      - {
-          name: caption_ne,
-          label: "Photo Caption (Nepali)",
-          widget: string,
-          required: false,
-          hint: "तस्बिरको क्याप्सन",
-        }
-      - {
-          name: enable_en,
-          label: "Enable English Translation",
-          widget: boolean,
-          default: false,
-          required: false,
-          hint: "Turn ON to enable English version. If OFF, Nepali will be shown even if user switches to English on website.",
-        }
-      - {
-          name: title_en,
-          label: "Title (English)",
-          widget: string,
-          required: false,
-          hint: "Optional English title",
-        }
-      - {
-          name: caption_en,
-          label: "Photo Caption (English)",
-          widget: string,
-          required: false,
-          hint: "Optional English photo caption",
-        }
-      - {
-          name: body,
-          label: "Content (Nepali) *",
-          widget: markdown,
-          hint: "नेपाली विवरण (Markdown)",
-        }
-      - {
-          name: body_en,
-          label: "Content (English)",
-          widget: markdown,
-          required: false,
-          hint: "Optional English content (Markdown)",
-        }
+      - name: title_ne
+        label: "Section Title (Nepali) *"
+        widget: string
+        hint: "नेपाली शीर्षक (e.g. 'हाम्रो इतिहास र स्थापना', 'भौतिक पूर्वाधार तथा सुविधाहरू')"
 
+      - name: order
+        label: "Display Order"
+        widget: number
+        default: 0
+        required: false
+        hint: "क्रमानुसार प्रदर्शन गर्न (१ = पहिलो, २ = दोस्रो...)"
+
+      - name: photo
+        label: "Section Photo"
+        widget: image
+        required: false
+        hint: "Optional illustration or photograph displayed in the right sidebar for this section"
+
+      - name: caption_ne
+        label: "Photo Caption (Nepali)"
+        widget: string
+        required: false
+        hint: "तस्बिरको नेपाली क्याप्सन"
+
+      - name: enable_en
+        label: "Enable English Translation"
+        widget: boolean
+        default: false
+        required: false
+        hint: "Turn ON to enable English version. If OFF, Nepali will stay visible even when visitors switch language."
+
+      - name: title_en
+        label: "Section Title (English)"
+        widget: string
+        required: false
+        hint: "Optional English heading (e.g. 'Our Legacy & Establishment')"
+
+      - name: caption_en
+        label: "Photo Caption (English)"
+        widget: string
+        required: false
+        hint: "Optional English caption for the photo"
+
+      - name: body
+        label: "Content (Nepali) *"
+        widget: markdown
+        hint: "नेपाली विवरण अनुच्छेद (Markdown format)"
+
+      - name: body_en
+        label: "Content (English)"
+        widget: markdown
+        required: false
+        hint: "Optional English content paragraph (Markdown format)"
+
+  # ============================================================================
+  # 5. SITE SETTINGS & HOMEPAGE CONFIGURATION
+  # ============================================================================
   - name: settings
     label: "Settings"
+    description: "Global school branding, color theme, contact info, homepage hero, media spotlight, and about intro."
     files:
+      # ------------------------------------------------------------------------
+      # Tab A: General Info & Branding
+      # ------------------------------------------------------------------------
       - name: site_info
         label: "General"
         file: "src/content/settings/site.json"
         format: "json"
         fields:
-          - { name: name_ne, label: "School Name (Nepali)", widget: string }
-          - { name: name_en, label: "School Name (English)", widget: string }
-          - { name: header_main_ne, label: "Header Main Name (Nepali)", widget: string, hint: "e.g. श्री शारदा बालिका नमुना" }
-          - { name: header_sub_ne, label: "Header Sub Name (Nepali)", widget: string, hint: "e.g. माध्यमिक विद्यालय" }
-          - { name: header_main_en, label: "Header Main Name (English)", widget: string, hint: "e.g. Shree Sharada Balika Namuna" }
-          - { name: header_sub_en, label: "Header Sub Name (English)", widget: string, hint: "e.g. Secondary School" }
-          - { name: tagline_ne, label: "Tagline (Nepali)", widget: string, required: false }
-          - { name: tagline_en, label: "Tagline (English)", widget: string, required: false }
-          - { name: logo, label: "School Logo", widget: image, required: false, hint: "Main navbar logo" }
-          - { name: stampLogo, label: "Stamp Logo", widget: image, required: false, hint: "Footer stamp logo" }
-          - { name: email, label: "Email Address", widget: string, hint: "Primary email shown on site" }
-          - { name: phones, label: "Phone Numbers", widget: list, field: { name: phone, label: "Phone Number", widget: string } }
-          - { name: location_ne, label: "Location (Nepali)", widget: string }
-          - { name: location_en, label: "Location (English)", widget: string }
-          - { name: estYear, label: "Established Year", widget: string }
+          - name: name_ne
+            label: "School Name (Nepali) *"
+            widget: string
+            hint: "Full formal school name in Nepali (shown in footer, document title, and SEO)"
+
+          - name: name_en
+            label: "School Name (English) *"
+            widget: string
+            hint: "Full formal school name in English (shown in footer, document title, and SEO)"
+
+          - name: header_main_ne
+            label: "Header Main Name (Nepali) *"
+            widget: string
+            hint: "First line in navbar brand logo (e.g. 'श्री शारदा बालिका नमुना')"
+
+          - name: header_sub_ne
+            label: "Header Subtitle (Nepali) *"
+            widget: string
+            hint: "Second line in navbar brand logo (e.g. 'माध्यमिक विद्यालय')"
+
+          - name: header_main_en
+            label: "Header Main Name (English) *"
+            widget: string
+            hint: "First line in navbar brand logo (e.g. 'Shree Sharada Balika Namuna')"
+
+          - name: header_sub_en
+            label: "Header Subtitle (English) *"
+            widget: string
+            hint: "Second line in navbar brand logo (e.g. 'Secondary School')"
+
+          - name: tagline_ne
+            label: "Tagline (Nepali)"
+            widget: string
+            required: false
+            hint: "Short slogan or sub-headline shown in Nepali footer"
+
+          - name: tagline_en
+            label: "Tagline (English)"
+            widget: string
+            required: false
+            hint: "Short slogan or sub-headline shown in English footer"
+
+          - name: logo
+            label: "Navbar Logo Image"
+            widget: image
+            required: false
+            hint: "Main transparent PNG logo shown in the top navigation header"
+
+          - name: stampLogo
+            label: "Footer Stamp / Emblem Logo"
+            widget: image
+            required: false
+            hint: "Round stamp or official emblem shown in the dark footer"
+
+          - name: email
+            label: "Primary Email Address *"
+            widget: string
+            hint: "Official school email displayed on contact page and footer"
+
+          - name: phones
+            label: "Contact Phone Numbers *"
+            widget: list
+            hint: "School phone / mobile numbers (clickable for mobile callers)"
+            field: { name: phone, label: "Phone Number", widget: string, hint: "e.g. 025-520962 or 9842054429" }
+
+          - name: location_ne
+            label: "Location Address (Nepali) *"
+            widget: string
+            hint: "ठेगाना (e.g. 'धरान-१६, सुनसरी, नेपाल')"
+
+          - name: location_en
+            label: "Location Address (English) *"
+            widget: string
+            hint: "Address in English (e.g. 'Dharan-16, Sunsari, Nepal')"
+
+          - name: estYear
+            label: "Established Year *"
+            widget: string
+            hint: "e.g. '1948 AD (2005 BS)'"
+
           - name: mapEmbed
-            label: "Map Embed URL"
+            label: "Google Map Embed URL (Interactive Iframe)"
             widget: string
             required: false
-            hint: "Get this from Google Maps → Share → Embed a map → copy only the src=\"...\" URL (starts with https://www.google.com/maps/embed?pb=...)"
+            hint: "From Google Maps → Share → Embed a map → copy the src=\"...\" URL (starts with https://www.google.com/maps/embed?pb=...)"
+
           - name: mapUrl
-            label: "Map Share Link"
+            label: "Google Map Share Link ('Location Map' Button)"
             widget: string
             required: false
-            hint: "Short share link shown as 'Location Map' in footer & contact page (e.g. https://maps.app.goo.gl/...)"
+            hint: "Short share link (e.g. https://maps.app.goo.gl/...) shown as clickable 'Location Map' in footer & contact page"
+
           - name: socials
             label: "Social Media Links"
             label_singular: "Social Link"
             widget: list
-            hint: "Add any social media or link. Choose the platform and paste the URL."
+            hint: "Add any social media profiles (Facebook, Instagram, TikTok, YouTube, WhatsApp, Viber, etc.)"
             fields:
               - name: platform
-                label: "Platform"
+                label: "Platform Name *"
                 widget: string
-                hint: "e.g. Facebook, Instagram, YouTube, WhatsApp, Map…"
-              - { name: url, label: "URL", widget: string, hint: "Full link including https://" }
-          - name: theme
-            label: "Color Theme (Hex Code)"
-            widget: object
-            fields:
-              - { name: bg, label: "Page Background Color", widget: string, default: "#FAF7F2", hint: "e.g. #FAF7F2" }
-              - { name: dark, label: "Dark / Text Color", widget: string, default: "#1E2E2D", hint: "e.g. #1E2E2D" }
-              - { name: primary, label: "Primary Button / CTA Color", widget: string, default: "#00706E", hint: "e.g. #00706E" }
-              - { name: secondary, label: "Secondary Button Color", widget: string, default: "#A23B24", hint: "e.g. #A23B24" }
-              - { name: accent, label: "Accent / Badge Color", widget: string, default: "#00A3A0", hint: "e.g. #00A3A0" }
+                hint: "Type any name (e.g. Facebook, Instagram, YouTube, TikTok, WhatsApp, Viber)"
+              - name: url
+                label: "Profile / Page URL *"
+                widget: string
+                hint: "Full profile web link (starts with https://)"
 
+          - name: theme
+            label: "Color Theme (Custom Hex Codes)"
+            widget: object
+            hint: "Customize the 5 core colors — instantly recolors buttons, badges, backgrounds, and links across the site"
+            fields:
+              - name: bg
+                label: "Page Background Color"
+                widget: string
+                default: "#FAF7F2"
+                hint: "Light alabaster/cream background color (e.g. #FAF7F2)"
+              - name: dark
+                label: "Dark / Text Color"
+                widget: string
+                default: "#1E2E2D"
+                hint: "Dark header/footer and primary body text color (e.g. #1E2E2D)"
+              - name: primary
+                label: "Primary CTA / Button Color"
+                widget: string
+                default: "#00706E"
+                hint: "Primary action buttons, brand badges, and links (e.g. #00706E)"
+              - name: secondary
+                label: "Secondary Button Color"
+                widget: string
+                default: "#A23B24"
+                hint: "Secondary action buttons and warm terracotta accents (e.g. #A23B24)"
+              - name: accent
+                label: "Accent / Pill Color"
+                widget: string
+                default: "#00A3A0"
+                hint: "Category pills, active borders, and highlight rings (e.g. #00A3A0)"
+
+      # ------------------------------------------------------------------------
+      # Tab B: Homepage Hero, Spotlight Media & Academic Programs
+      # ------------------------------------------------------------------------
       - name: homepage
-        label: "Homepage Content"
+        label: "Homepage"
         file: "src/content/settings/homepage.json"
         format: "json"
         fields:
-          - { name: heroHeadline_ne, label: "Hero Headline (Nepali)", widget: string }
-          - { name: heroHeadline_en, label: "Hero Headline (English)", widget: string, required: false }
-          - { name: heroSub_ne, label: "Hero Subtitle (Nepali)", widget: text }
-          - { name: heroSub_en, label: "Hero Subtitle (English)", widget: text, required: false }
-          - { name: youtubeStoryVideoId, label: "YouTube Video ID", widget: string, hint: "e.g. 20NugF8viUM", required: false }
-          - { name: programsHeading_ne, label: "Programs Heading (Nepali)", widget: string, default: "उपलब्ध शैक्षिक कार्यक्रमहरू" }
-          - { name: programsHeading_en, label: "Programs Heading (English)", widget: string, default: "Academic Programs Offered", required: false }
+          - name: heroHeadline_ne
+            label: "Hero Main Headline (Nepali) *"
+            widget: string
+            hint: "Large bold headline at top of homepage in Nepali"
+
+          - name: heroHeadline_en
+            label: "Hero Main Headline (English)"
+            widget: string
+            required: false
+            hint: "Optional English headline (defaults to Nepali if omitted)"
+
+          - name: heroSub_ne
+            label: "Hero Subtitle (Nepali) *"
+            widget: text
+            hint: "Introductory paragraph under the hero headline in Nepali"
+
+          - name: heroSub_en
+            label: "Hero Subtitle (English)"
+            widget: text
+            required: false
+            hint: "Optional English subtitle (defaults to Nepali if omitted)"
+
+          - name: mediaType
+            label: "Campus Spotlight Media Type"
+            widget: select
+            options:
+              - { label: "YouTube Video", value: "video" }
+              - { label: "Featured Photo / Banner", value: "photo" }
+            default: "video"
+            required: false
+            hint: "Choose whether to display an interactive YouTube tour video or a high-res campus banner photo"
+
+          - name: mediaHeading_ne
+            label: "Media Section Title (Nepali) *"
+            widget: string
+            default: "विद्यालय परिसर तथा वरपरको दृश्य"
+            hint: "Heading above the video or photo (e.g. 'विद्यालय परिसर तथा वरपरको दृश्य')"
+
+          - name: mediaHeading_en
+            label: "Media Section Title (English)"
+            widget: string
+            default: "School Campus & Periphery Overview"
+            required: false
+            hint: "Optional English heading above the video or photo"
+
+          - name: youtubeStoryVideoId
+            label: "YouTube Video ID (if Video mode)"
+            widget: string
+            required: false
+            hint: "Only the YouTube video ID code, e.g. '20NugF8viUM' (from https://youtube.com/watch?v=20NugF8viUM)"
+
+          - name: mediaImage
+            label: "Spotlight Photo (if Photo mode or fallback)"
+            widget: image
+            required: false
+            hint: "Upload a campus banner photo (shown if Photo mode is selected or if Video ID is blank)"
+
+          - name: mediaCaption_ne
+            label: "Photo Caption (Nepali)"
+            widget: string
+            required: false
+            hint: "Optional Nepali caption beneath the photo banner"
+
+          - name: mediaCaption_en
+            label: "Photo Caption (English)"
+            widget: string
+            required: false
+            hint: "Optional English caption beneath the photo banner"
+
+          - name: programsHeading_ne
+            label: "Programs Section Heading (Nepali) *"
+            widget: string
+            default: "उपलब्ध शैक्षिक कार्यक्रमहरू"
+            hint: "Heading above academic program cards (e.g. 'उपलब्ध शैक्षिक कार्यक्रमहरू')"
+
+          - name: programsHeading_en
+            label: "Programs Section Heading (English)"
+            widget: string
+            default: "Academic Programs Offered"
+            required: false
+            hint: "Optional English heading above program cards"
+
           - name: programs
-            label: "Academic Programs"
+            label: "Academic Programs List"
             widget: list
+            hint: "Add, edit, or reorder any academic streams (+2 Science, +2 Management, ECD-10, etc.) — auto-centers in cards"
             fields:
-              - { name: title_ne, label: "Title (Nepali)", widget: string }
-              - { name: title_en, label: "Title (English)", widget: string, required: false }
-              - { name: level_ne, label: "Level (Nepali)", widget: string, required: false }
-              - { name: level_en, label: "Level (English)", widget: string, required: false }
-              - { name: desc_ne, label: "Description (Nepali)", widget: text }
-              - { name: desc_en, label: "Description (English)", widget: text, required: false }
-              - { name: tags_ne, label: "Tags (Nepali)", widget: string, required: false }
-              - { name: tags_en, label: "Tags (English)", widget: string, required: false }
+              - name: title_ne
+                label: "Program Title (Nepali) *"
+                widget: string
+                hint: "e.g. '१०+२ व्यवस्थापन', '१०+२ विज्ञान', 'आधारभूत शिक्षा'"
+              - name: title_en
+                label: "Program Title (English)"
+                widget: string
+                required: false
+                hint: "e.g. 'Ten Plus Two (+2) Management', 'Basic Education'"
+              - name: level_ne
+                label: "Level Badge (Nepali)"
+                widget: string
+                required: false
+                hint: "e.g. 'उच्च माध्यमिक (+२)', 'माध्यमिक तह'"
+              - name: level_en
+                label: "Level Badge (English)"
+                widget: string
+                required: false
+                hint: "e.g. 'Higher Secondary (+2)', 'Primary & Secondary'"
+              - name: desc_ne
+                label: "Description (Nepali) *"
+                widget: text
+                hint: "Summary of curriculum, facilities, and key strengths in Nepali"
+              - name: desc_en
+                label: "Description (English)"
+                widget: text
+                required: false
+                hint: "Optional English summary"
+              - name: tags_ne
+                label: "Feature Tags (Nepali)"
+                widget: string
+                required: false
+                hint: "Dot-separated tags (e.g. 'NEB सम्बन्धन · कम्प्युटर ल्याब · छात्रवृत्ति')"
+              - name: tags_en
+                label: "Feature Tags (English)"
+                widget: string
+                required: false
+                hint: "Dot-separated tags (e.g. 'NEB Affiliated · Computer Lab · Scholarships')"
 
+      # ------------------------------------------------------------------------
+      # Tab C: About Page Main Heading & Intro
+      # ------------------------------------------------------------------------
+      - name: about_page
+        label: "About Intro"
+        file: "src/content/settings/about.json"
+        format: "json"
+        fields:
+          - name: title_ne
+            label: "Main Page Heading (Nepali) *"
+            widget: string
+            hint: "Large <h1> title at the top of the /about page (e.g. 'श्री शारदा बालिका नमुना माध्यमिक विद्यालयको परिचय')"
 
+          - name: title_en
+            label: "Main Page Heading (English)"
+            widget: string
+            required: false
+            hint: "Optional English heading (e.g. 'About Our School')"
+
+          - name: intro_ne
+            label: "Intro Paragraph (Nepali) *"
+            widget: text
+            hint: "Opening introductory paragraph highlighted in large text at the top of /about"
+
+          - name: intro_en
+            label: "Intro Paragraph (English)"
+            widget: text
+            required: false
+            hint: "Optional English introduction paragraph"

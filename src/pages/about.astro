@@ -15,8 +15,26 @@ const sections = allSections.sort((a, b) => a.data.order - b.data.order);
   <section class="section">
     <div class="container about-inner">
       <div class="about-text">
-        <h1 data-i18n="about.title">{about.title}</h1>
-        <p class="about-intro" data-i18n="about.intro">{about.intro}</p>
+        <h1>
+          {about.title ? (
+            <>
+              <span class="text-ne">{about.titleNe}</span>
+              <span class="text-en" style="display:none;">{about.title}</span>
+            </>
+          ) : (
+            <span class="text-always">{about.titleNe}</span>
+          )}
+        </h1>
+        <p class="about-intro">
+          {about.intro ? (
+            <>
+              <span class="text-ne">{about.introNe}</span>
+              <span class="text-en" style="display:none;">{about.intro}</span>
+            </>
+          ) : (
+            <span class="text-always">{about.introNe}</span>
+          )}
+        </p>
 
         {sections.map((section) => {
           const { title_ne, title_en, enable_en, body_en } = section.data;

@@ -1,5 +1,6 @@
 import siteSettings from '../content/settings/site.json';
 import homepageSettings from '../content/settings/homepage.json';
+import aboutSettings from '../content/settings/about.json';
 
 /**
  * Central static-site config: loaded dynamically from CMS settings in src/content/settings/
@@ -31,7 +32,7 @@ export const site = {
   mapUrl: siteSettings.mapUrl || '',
 
   description:
-    "Shree Sharada Balika Namuna Secondary School (श्री शारदा बालिका नमुना माध्यमिक विद्यालय) was established in 1948 AD (2005 BS) in Dharan-16, Sunsari, Nepal. An premier all-girls community-based institution affiliated with the National Examination Board (NEB) offering ECD to Grade 10 and Ten Plus Two (+2) in Management and Education.",
+    `${siteSettings.name_en} (${siteSettings.name_ne}) — ${siteSettings.location_en}. Established in ${siteSettings.estYear}.`,
 
   nav: [
     { label: 'Home', href: '/' },
@@ -88,15 +89,26 @@ export const site = {
       heroSubEn: homepageSettings.heroSub_en,
       programsHeadingNe: homepageSettings.programsHeading_ne,
       programsHeadingEn: homepageSettings.programsHeading_en,
+      mediaType: homepageSettings.mediaType || 'video',
+      mediaHeadingNe: homepageSettings.mediaHeading_ne || 'विद्यालय परिसर तथा वरपरको दृश्य',
+      mediaHeadingEn: homepageSettings.mediaHeading_en || 'School Campus & Periphery Overview',
+      youtubeStoryVideoId: homepageSettings.youtubeStoryVideoId,
+      mediaImage: homepageSettings.mediaImage,
+      mediaCaptionNe: homepageSettings.mediaCaption_ne,
+      mediaCaptionEn: homepageSettings.mediaCaption_en,
       featuredHeading: 'Latest announcements & notices',
-      videoHeading: 'School Campus & Periphery Overview',
       highlightsHeading: 'School & Student Activities',
     },
 
     about: {
-      title: 'About Shree Sharada Balika Namuna Secondary School',
+      title: aboutSettings.title_en || 'About Shree Sharada Balika Namuna Secondary School',
+      titleNe: aboutSettings.title_ne || 'श्री शारदा बालिका नमुना माध्यमिक विद्यालयको परिचय',
       intro:
+        aboutSettings.intro_en ||
         'Established in 1948 AD (2005 BS), Shree Sharada Balika Namuna Secondary School is a community-based all-girls educational institution located in Dharan-16, Sunsari, Nepal. We are affiliated with the National Examination Board (NEB) and approved by the Ministry of Education.',
+      introNe:
+        aboutSettings.intro_ne ||
+        'वि.सं. २००५ (सन् १९४८) मा स्थापित श्री शारदा बालिका नमुना माध्यमिक विद्यालय धरान-१६, सुनसरीमा अवस्थित एक उत्कृष्ट सामुदायिक बालिका विद्यालय हो। राष्ट्रिय परीक्षा बोर्ड (NEB) सम्बन्धन प्राप्त तथा शिक्षा मन्त्रालय स्वीकृत यस विद्यालयमा गुणस्तरीय शिक्षा प्रदान गरिन्छ।',
       sections: [
         {
           heading: 'Our legacy & establishment',

@@ -1,4 +1,5 @@
 import { getCollection } from 'astro:content';
+import { site } from '../config/site';
 import { mdToHtml } from '../utils/markdown';
 
 export async function GET(context: any) {
@@ -36,9 +37,9 @@ export async function GET(context: any) {
   const rss = `<?xml version="1.0" encoding="UTF-8" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
 <channel>
-  <title>Shree Sharada Balika Namuna Secondary School - Notices</title>
+  <title>${site.name} - Notices</title>
   <link>${siteUrlString}notices</link>
-  <description>Official announcements and notices from Shree Sharada Balika Namuna Secondary School, Dharan-16, Sunsari</description>
+  <description>Official announcements and notices from ${site.name}, ${site.location}</description>
   <language>ne-np</language>
   <atom:link href="${siteUrlString}feed.xml" rel="self" type="application/rss+xml" />
   ${items}

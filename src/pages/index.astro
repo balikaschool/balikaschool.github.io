@@ -8,10 +8,9 @@ import heroImage from '../assets/hero/frontpage-hero.jpg';
 
 const { home } = site.copy;
 
-// Featured / pinned notices for the homepage
+// Top 3 most recent notices automatically displayed on homepage
 const allNotices = await getCollection('notices');
-const featured = allNotices
-  .filter((e) => e.data.featured || e.data.pinned)
+const recentNotices = allNotices
   .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
   .slice(0, 3);
 
@@ -73,7 +72,7 @@ const programI18nKeys = [
       <div class="hero-media">
         <Image
           src={heroImage}
-          alt="Shree Sharada Balika Namuna Secondary School"
+          alt={site.name}
           width={1000}
           widths={[480, 800, 1000]}
           sizes="(max-width: 800px) 92vw, 45vw"
@@ -146,12 +145,12 @@ const programI18nKeys = [
   </section>
 
   {
-    featured.length > 0 && (
+    recentNotices.length > 0 && (
       <section class="section">
         <div class="container">
           <h2 data-i18n="notices.heading">{home.featuredHeading}</h2>
           <ul class="featured-grid">
-            {featured.map((e) => (
+            {recentNotices.map((e) => (
               <li>
                 <NoticeCard
                   title={e.data.title}
@@ -172,20 +171,58 @@ const programI18nKeys = [
     )
   }
 
-  <!-- Video Block: Life at Shree Sharada Balika School -->
-  <section class="section">
-    <div class="container video-block">
-      <h2 data-i18n="video.heading">Life at Shree Sharada Balika School</h2>
-      <div class="video-frame">
-        <iframe
-          src={`https://www.youtube-nocookie.com/embed/${site.youtubeStoryVideoId}`}
-          title={`Life at Shree Sharada Balika School — ${site.name}`}
-          loading="lazy"
-          allow="accelerometer; encrypted-media; gyroscope; picture-in-picture"
-          allowfullscreen></iframe>
-      </div>
-    </div>
-  </section>
+  <!-- Featured Media / Video / Photo Spotlight -->
+  {
+    (home.youtubeStoryVideoId || home.mediaImage) && (
+      <section class="section">
+        <div class="container video-block media-block">
+          <h2>
+            {home.mediaHeadingEn ? (
+              <>
+                <span class="text-ne">{home.mediaHeadingNe}</span>
+                <span class="text-en" style="display:none;">{home.mediaHeadingEn}</span>
+              </>
+            ) : (
+              <span class="text-always">{home.mediaHeadingNe}</span>
+            )}
+          </h2>
+          {
+            home.mediaType !== 'photo' && home.youtubeStoryVideoId ? (
+              <div class="video-frame">
+                <iframe
+                  src={`https://www.youtube-nocookie.com/embed/${home.youtubeStoryVideoId}`}
+                  title={`${home.mediaHeadingEn || home.mediaHeadingNe} — ${site.name}`}
+                  loading="lazy"
+                  allow="accelerometer; encrypted-media; gyroscope; picture-in-picture"
+                  allowfullscreen></iframe>
+              </div>
+            ) : home.mediaImage ? (
+              <div class="media-photo-frame">
+                <img
+                  src={home.mediaImage}
+                  alt={home.mediaHeadingEn || home.mediaHeadingNe}
+                  class="media-photo"
+                  loading="lazy"
+                />
+                {(home.mediaCaptionNe || home.mediaCaptionEn) && (
+                  <p class="media-caption">
+                    {home.mediaCaptionEn ? (
+                      <>
+                        <span class="text-ne">{home.mediaCaptionNe}</span>
+                        <span class="text-en" style="display:none;">{home.mediaCaptionEn}</span>
+                      </>
+                    ) : (
+                      <span class="text-always">{home.mediaCaptionNe}</span>
+                    )}
+                  </p>
+                )}
+              </div>
+            ) : null
+          }
+        </div>
+      </section>
+    )
+  }
 
   <!-- Photo Highlights Section: Auto-scrolling image ribbon -->
   {
@@ -218,7 +255,7 @@ const programI18nKeys = [
 <script>
   function syncHomeLanguage() {
     const lang = localStorage.getItem('balika_lang') || 'ne';
-    document.querySelectorAll('.hero-text, .programs-section').forEach((container) => {
+    document.querySelectorAll('.hero-text, .programs-section, .media-block').forEach((container) => {
       container.querySelectorAll('.text-ne').forEach((el) => {
         (el as HTMLElement).style.display = lang === 'ne' ? '' : 'none';
       });
@@ -446,5 +483,29 @@ const programI18nKeys = [
     height: 100%;
     border: 0;
     display: block;
+  }
+
+  .media-photo-frame {
+    margin-top: var(--space-3);
+    border-radius: var(--radius-card);
+    overflow: hidden;
+    border: var(--border-hairline);
+    background: var(--color-white);
+    box-shadow: 0 4px 14px rgb(0 0 0 / 0.04);
+  }
+
+  .media-photo {
+    width: 100%;
+    max-height: 480px;
+    object-fit: cover;
+    display: block;
+  }
+
+  .media-caption {
+    padding: var(--space-3);
+    font-size: 0.95rem;
+    color: var(--text-body);
+    margin: 0;
+    border-top: 1px solid color-mix(in srgb, var(--accent) 15%, transparent);
   }
 </style>
