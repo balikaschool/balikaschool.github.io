@@ -6,10 +6,7 @@ caption_ne: विद्यालय स्काउट टोली।
 enable_en: true
 title_en: Academic streams & affiliation
 caption_en: School scout troop.
-body_en: |-
-  The school offers comprehensive educational programs from Early Childhood Development (ECD) through Grade 10, as well as Ten Plus Two (+2) programs in Management and Education streams.
-
-  Fully approved by the Ministry of Education, Nepal, and affiliated with the National Examination Board (NEB), our graduates excel consistently in higher secondary examinations and university entrance assessments.
+body_en: The school offers comprehensive educational programs from Early Childhood Development (ECD) through Grade 10, as well as Ten Plus Two (+2) programs in Management, Education and beautician  Fully approved by the Ministry of Education, Nepal, and affiliated with the National Examination Board (NEB), our graduates excel consistently in higher secondary examinations and university entrance assessmentsbe
 ---
 
 विद्यालयमा प्रारम्भिक बाल विकास (ECD) देखि कक्षा १० सम्म र उच्च माध्यमिक तहमा १०+२ व्यवस्थापन , शिक्षा संकाय र व्युटिसियनका कक्षा समेत सञ्चालन छन्।
