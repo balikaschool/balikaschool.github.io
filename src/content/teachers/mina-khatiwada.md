@@ -1,7 +1,7 @@
 ---
 name: Mina Khatiwada
 designation: Teacher
-photo: ../../assets/teachers/Mina Khatiwada.jpeg
+photo: ../../assets/teachers/1000065186.jpg
 subject: English
 phone: '9862021715'
 address: Dharan-16
