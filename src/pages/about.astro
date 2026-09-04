@@ -160,6 +160,17 @@ const sections = allSections.sort((a, b) => a.data.order - b.data.order);
     margin-top: var(--space-1);
   }
 
+  .about-section-content :global(img) {
+    max-width: 100%;
+    height: auto;
+    border-radius: var(--radius-card);
+    border: var(--border-hairline);
+    margin-top: var(--space-3);
+    margin-bottom: var(--space-3);
+    display: block;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
+  }
+
   .about-media {
     display: grid;
     gap: var(--space-4);
