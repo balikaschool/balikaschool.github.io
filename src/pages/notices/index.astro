@@ -7,11 +7,13 @@ import { site } from '../../config/site';
 const { notices } = site.copy;
 
 const all = await getCollection('notices');
-// Pinned first, then by date descending
-const sorted = [
-  ...all.filter((e) => e.data.pinned).sort((a, b) => b.data.date.getTime() - a.data.date.getTime()),
-  ...all.filter((e) => !e.data.pinned).sort((a, b) => b.data.date.getTime() - a.data.date.getTime()),
-];
+// Pinned first, then by date descending (latest first)
+const sorted = [...all].sort((a, b) => {
+  if (Boolean(b.data.pinned) !== Boolean(a.data.pinned)) {
+    return b.data.pinned ? 1 : -1;
+  }
+  return new Date(b.data.date).getTime() - new Date(a.data.date).getTime();
+});
 ---
 
 <BaseLayout title={notices.title}>

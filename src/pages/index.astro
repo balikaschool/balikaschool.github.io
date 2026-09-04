@@ -8,10 +8,15 @@ import heroImage from '../assets/hero/frontpage-hero.jpg';
 
 const { home } = site.copy;
 
-// Top 3 most recent notices automatically displayed on homepage
+// Pinned first, then by date descending (latest first)
 const allNotices = await getCollection('notices');
-const recentNotices = allNotices
-  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
+const recentNotices = [...allNotices]
+  .sort((a, b) => {
+    if (Boolean(b.data.pinned) !== Boolean(a.data.pinned)) {
+      return b.data.pinned ? 1 : -1;
+    }
+    return new Date(b.data.date).getTime() - new Date(a.data.date).getTime();
+  })
   .slice(0, 3);
 
 const highlights = (await getCollection('highlights')).sort(
