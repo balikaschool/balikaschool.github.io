@@ -11,6 +11,7 @@ body_en: |-
 
   Fully approved by the Ministry of Education, Nepal, and affiliated with the National Examination Board (NEB), our graduates excel consistently in higher secondary examinations and university entrance assessments.
 ---
-विद्यालयमा प्रारम्भिक बाल विकास (ECD) देखि कक्षा १० सम्म र उच्च माध्यमिक तहमा १०+२ व्यवस्थापन र शिक्षा संकाय सञ्चालित छन्।
+
+विद्यालयमा प्रारम्भिक बाल विकास (ECD) देखि कक्षा १० सम्म र उच्च माध्यमिक तहमा १०+२ व्यवस्थापन , शिक्षा संकाय र व्युटिसियनका कक्षा समेत सञ्चालन छन्।
 
 नेपाल सरकार शिक्षा मन्त्रालयबाट स्वीकृत तथा राष्ट्रिय परीक्षा बोर्ड (NEB) सँग सम्बद्ध यस विद्यालयका छात्राहरूले परीक्षामा निरन्तर उत्कृष्ट नतिजा हासिल गर्दै आएका छन्।
