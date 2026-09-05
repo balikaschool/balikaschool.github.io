@@ -23,3 +23,5 @@ body_en: |-
 ![Sansthapak Byaktiharu](../../assets/about/1-20.png)
 
 ![Pradhanadhyapak Haru](../../assets/about/1-21.png)
+
+![पूर्व विद्यार्थी मञ्च](../../assets/about/1000065248.jpg)
