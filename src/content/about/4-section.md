@@ -1,8 +1,8 @@
 ---
 title_ne: शिक्षक तथा कर्मचारीहरूका तस्बिरहरू एवं विभिन्न जयन्ती समारोहका झलकहरू
 order: 4
-photo: ''
-caption_ne: ''
+photo: ../../assets/about/school-building.jpg
+caption_ne: विद्यार्थीहरूको प्रार्थना सभा।
 enable_en: false
 title_en: ''
 caption_en: ''
