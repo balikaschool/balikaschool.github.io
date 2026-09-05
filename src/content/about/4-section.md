@@ -10,7 +10,12 @@ body_en: ''
 ---
 
 ### **स्वर्ण** **जयन्ती**
+
 ![Swarna Mahotsab](../../assets/about/1-28.png)
+
+### हीरक जयन्ती
+
+![Hirak Jayanti Karyakram](../../assets/about/1000065240.jpg)
 
 ### **हीरक जयन्तीसम्म आइपुग्दाको विद्यालय परिवार**
 
