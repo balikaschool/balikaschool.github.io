@@ -1,7 +1,7 @@
 ---
 name: Guru Prasad Dahal
 designation: Teacher
-photo: ../../assets/teachers/1000065306.jpg
+photo: ../../assets/teachers/1000065321.png
 subject: Mathematics
 phone: '9842065116'
 address: Dharan-16
