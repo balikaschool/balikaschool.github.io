@@ -1,7 +1,7 @@
 ---
 name: Maiya Khadka
 designation: Vice-Principal
-photo: ../../assets/teachers/1000065158.jpg
+photo: ../../assets/teachers/1000065319.png
 subject: English
 phone: '9852049725'
 address: Dharan-16
